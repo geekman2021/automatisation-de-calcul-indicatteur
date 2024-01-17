@@ -1,0 +1,331 @@
+<%- include('../partials/header');  -%>
+
+<div class="container">
+    <div class="row g-2">
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+                <canvas id="myChart3"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+                <canvas id="myChart4"></canvas>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload = function(){
+        
+        $.ajax({
+            url:'/api/stat',
+            method:'post',
+            dataType:"json",
+
+            success:(resultat3)=>{
+                chartdisplay3(resultat3);
+                chartdisplay(resultat3);
+                chartdisplay2(resultat3);
+                // let ambo = resultat3.nbAmbo;
+                // let anjo = resultat3.nbAnjo;
+
+                // console.log(ambo[0].effAmbo)
+                // console.log(anjo[0].effAnjo)
+            }
+        })
+
+    }
+</script>
+
+<script>
+//     //age
+// window.onload = function(){
+        
+//         $.ajax({
+//             url:'/api/stat',
+//             method:'post',
+//             dataType:"json",
+
+//             success:(resultat2)=>{
+//                 chartdisplay2(resultat2);
+//                 // let donnees = resultat.info;
+//                 // let donnees2 = resultat.info2;
+
+//                 // console.log(donnees[0].homme);
+//                 // console.log(donnees2[0].femme);
+//                 // $('#test2').html(`femme : <b>${donnees2[0].femme}</b>`);
+
+//                 // // document.getElementById('stati').nodeValue = donnees;
+//                 // // alert(donnees);
+//                 // $.each(donnees, (i, donnee)=>{
+//                 //     $('#test').html(`<p>${donnee.homme}</p>`)
+//                 // })
+//             }
+//         })
+
+//     }
+
+//----------------------------------------------------------------------------
+// window.onload = function(){
+        
+//         $.ajax({
+//             url:'/api/stat',
+//             method:'post',
+//             dataType:"json",
+
+//             success:(resultat)=>{
+//                 chartdisplay(resultat);
+//                 // let donnees = resultat.info;
+//                 // let donnees2 = resultat.info2;
+
+//                 // console.log(donnees[0].homme);
+//                 // console.log(donnees2[0].femme);
+//                 // $('#test2').html(`femme : <b>${donnees2[0].femme}</b>`);
+
+//                 // // document.getElementById('stati').nodeValue = donnees;
+//                 // // alert(donnees);
+//                 // $.each(donnees, (i, donnee)=>{
+//                 //     $('#test').html(`<p>${donnee.homme}</p>`)
+//                 // })
+//             }
+//         })
+
+//     }
+
+//-------------------------------------------------------------------
+// $("document").ready(function(){
+//     $(document).on('click', '#stati', function(){
+        
+//         $.ajax({
+//             url:'/api/stat',
+//             method:'post',
+//             dataType:"json",
+
+//             success:(resultat)=>{
+//                 let donnees = resultat.info;
+//                 let donnees2 = resultat.info2;
+
+//                 console.log(donnees[0].homme);
+//                 console.log(donnees2[0].femme);
+//                 $('#test2').html(`femme : <b>${donnees2[0].femme}</b>`);
+
+//                 // document.getElementById('stati').nodeValue = donnees;
+//                 // alert(donnees);
+//                 $.each(donnees, (i, donnee)=>{
+//                     $('#test').html(`<p>${donnee.homme}</p>`)
+//                 })
+//             }
+//         })
+
+//     })
+
+
+// })
+
+
+
+</script>
+
+<script>
+
+
+
+
+//     Chart.defaults.global.title.display = true;
+//     Chart.defaults.global.title.text = "STATISTIQUE DE L'ANNEE"
+
+//     var ctx = document.getElementById('myChart').getContext('2d');
+//     var chart = new Chart(ctx, {
+//     // The type of chart we want to create
+//     type: 'line',
+
+//     // The data for our dataset
+//     data: {
+//         labels: ['Janv', 'Fev', 'Mars', 'Avri', 'Mai', 'Juin', 'Jui', 'Juill', 'Aout', 'Sept','Oct','Nov', 'Dec'],
+//         datasets: [{
+//             label: 'TEST',
+//             borderColor: 'rgb(255, 99, 132)',
+//             data: [0, 10, 5, 2, 20, 30, 45, 24, 42, 10, 20, 2,39]
+//         }]
+//     },
+
+//     // Configuration options go here
+//     options: {}
+// });
+
+function chartdisplay3(res3){
+
+    let ambo = res3.nbAmbo;
+    let anjo = res3.nbAnjo;
+    let mora = res3.nbMora;
+    let tana = res3.nbTana;
+    let anki = res3.nbAnki;
+
+    new Chart(document.getElementById("myChart"),{
+        type : 'polarArea',
+        data : {
+            labels : ['Ambodimanga', 'Anjoma', 'Morarano', 'Tanambao V', 'Ankirihiry'],
+            datasets:[{
+                label : 'AAAAAAAAAA',
+                data : [ambo[0].effAmbo, anjo[0].effAnjo, mora[0].effMora, tana[0].effTana, anki[0].effAnki],
+                backgroundColor:[
+                    'rgb(255,99,132',
+                    'rgb(75,192,192',
+                    'rgb(255,205,86',
+                    'rgb(201,203,207',
+                    'rgb(54,162,235'
+                ],
+            }]
+        },
+
+        options: {
+        title:{
+            display:true,
+            text: 'Nombre de menage par Arrodissement'
+        },}
+
+    })    
+
+};
+
+function chartdisplay2(res2){
+    let age = res2.age; let ageF = res2.ageF;
+    let age2 = res2.age2; let age2F = res2.age2F;
+    let age3 = res2.age3; let age3F = res2.age3F;
+    let age4 = res2.age4; let age4F = res2.age4F;
+    let age5 = res2.age5; let age5F = res2.age5F;
+    let age6 = res2.age6; let age6F = res2.age6F;
+    let age7 = res2.age7; let age7F = res2.age7F;
+    let age8 = res2.age8; let age8F = res2.age8F;
+    let age9 = res2.age9; let age9F = res2.age9F;
+    let age10 = res2.age10; let age10F = res2.age10F;
+    let age11 = res2.age11; let age11F = res2.age11F;
+    let age12 = res2.age12; let age12F = res2.age12F;
+    let age13 = res2.age13; let age13F = res2.age13F;
+
+    new Chart(document.getElementById("myChart2"),{
+    type: 'bar',
+    
+    data :{
+        labels:["0-5","6-10","11-15","16-20","21-25","26-30","31-35","36-40","41-45","46-50","51-55","56-60","+60"],
+        datasets :[{
+            label: "Femme",
+            backgroundColor: "#3e95cd",
+            data:[ageF[0].age, age2F[0].age, age3F[0].age, age4F[0].age, age5F[0].age, age6F[0].age,
+            age7F[0].age, age8F[0].age, age9F[0].age, age10F[0].age, age11F[0].age, age12F[0].age,age13F[0].age]
+        }, {
+            label: "Homme",
+            backgroundColor: "#8e5ea2",
+            data:[age[0].age, age2[0].age, age3[0].age, age4[0].age, age5[0].age, age6[0].age,
+            age7[0].age, age8[0].age, age9[0].age, age10[0].age, age11[0].age, age12[0].age,age13[0].age]
+        }]  
+    },
+
+    options:{
+        title:{
+            display:true,
+            text: "Nombre d'individu par tranche d'age"
+        },
+    }
+});
+};
+
+
+
+function chartdisplay(res){
+    let nbHomme = res.info;
+    let nbFemme = res.info2;
+    console.log(nbHomme[0].homme);
+    console.log(nbFemme[0].femme);
+
+    new Chart(document.getElementById("myChart3"),{
+    type: 'doughnut',
+    
+    data :{
+        labels:["Homme","Femme"],
+        datasets :[{
+            label: "Population (millions)",
+            backgroundColor: ["#3e95cd","#8e5ea2"],
+            data:[nbHomme[0].homme ,nbFemme[0].femme]
+        }] 
+    },
+
+    options:{
+        title:{
+            display:true,
+            text: 'Nombre de Femme par rapport au Homme'
+        }
+    }
+});
+}
+
+
+
+
+
+new Chart(document.getElementById("myChart4"),{
+    type: 'line',
+    
+    data :{
+        labels:[1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
+        datasets :[{
+            label: "Africa",
+            borderColor: "#3e95cd",
+            data:[86,114,106,107, 111, 133, 221, 783, 2478],
+            fill:false
+        },
+        {
+            label: "Asia",
+            borderColor: "#8e5ea2",
+            data:[282,350,411,502, 635, 133, 808, 947, 1402, 3700, 5267],
+            fill:false
+        },
+        {
+            label: "Europe",
+            borderColor: "#3cba9f",
+            data:[168,170,178,180, 203, 276, 408, 547, 675, 734],
+            fill:false
+        },
+        {
+            label: "Latin America",
+            borderColor: "#e8c3b9",
+            data:[40,20,10,16, 24, 24, 38, 172, 312, 433],
+            fill:false
+        },
+        {
+            label: "North America",
+            borderColor: "#c45850",
+            data:[6,3,2,2, 7, 26, 82, 172, 312, 433],
+            fill:false
+        },] 
+    },
+
+    options:{
+        title:{
+            display:true,
+            text: 'World population per region ( in millions)'
+        }
+    }
+});
+
+
+
+</script>
+
+
+</body>
+</html>
+
+

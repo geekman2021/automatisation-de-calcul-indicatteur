@@ -1,0 +1,254 @@
+<%- include('../partials/header'); -%>
+
+<div class="container-fluid">
+    <div class="row g-2" >
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart" style="background-color:rgba(185, 240, 231, 0.5);"></canvas>
+				
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save2" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart2" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div> 
+        </div> 
+        <div class="col-lg-6" style="margin-top: 20px;">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save3" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart3" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6" style="margin-top: 20px;">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save4" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart4" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+	window.onload= function(){
+		$.ajax({
+			url: '/app/graphique_naiss',
+			method: 'post',
+			dataType: 'json',
+
+			success:(resultat)=>{
+				chartdisplay1(resultat);
+                chartdisplay2(resultat);
+                chartdisplay3(resultat);
+                chartdisplay4(resultat);
+			}
+		})
+	}
+
+</script>
+
+
+<script>
+    function chartdisplay1(result) {
+        let group_age_parent= result.res1;
+        let total= result.res2;
+        let data_mere=[], data_pere=[] ;
+        let Lib_Age=['Moins 15 ans', '15 à 19 ans', '20 à 24 ans', '25 à 29 ans', '30 à 34 ans', '35 à 39 ans', '40 à 44 ans', '45 à 49 ans', '50 à 54 ans', '55 à 60 ans', '60 ans et plus', 'Manquant'];
+
+
+
+        $.each(group_age_parent, (i, info)=>{
+                    let calcul_mere= ((info.age_mere * 100) / (total[0].TOTAL)).toFixed(1);
+                    let calcul_pere= ((info.age_pere * 100) / (total[0].TOTAL)).toFixed(1);
+
+                    data_mere.push(calcul_mere);
+                    data_pere.push(calcul_pere);
+        });
+
+
+
+
+
+
+
+
+        Chart.defaults.global.title.display= true;
+		Chart.defaults.global.title.text= "Repartition En (%) Des parents nouveaux nés Selon leur âge" ;
+
+        var ctx= document.getElementById('myChart').getContext('2d');
+        var chart= new Chart(ctx, {
+	// The type of chart we want to create
+	    type: 'bar',
+
+	//the data our dataset
+	    data: {
+		labels: Lib_Age,
+        datasets: [{
+             label: 'Mère',
+             backgroundColor:  "#a0333a",
+             data: data_mere
+         }, {
+             label: 'Père',
+             backgroundColor: "	#09568d",
+             data: data_pere
+         }]
+
+
+		},
+		// configuration options go here
+		options: {}
+});
+
+$('#save').click(function(){
+	$('#myChart').get(0).toBlob(function(blob){
+		saveAs(blob, 'graph.png');
+	});
+});
+
+
+	}
+
+   function chartdisplay3(result){
+
+        let adresse= result.res5;
+        let total= result.res2;
+        let data_x=[], data_y=[];
+
+        $.each(adresse, (i, info)=>{
+            let calcul_adresse= ((info.total_adresse * 100) / (total[0].TOTAL)).toFixed(1);
+            data_x.push(info.adresse);
+            data_y.push(calcul_adresse);
+});
+
+
+        new Chart(document.getElementById("myChart3"),{
+            type: 'polarArea',
+            data :{
+                labels: data_x,
+                datasets :[{
+                    label: "Population (millions)",
+                    backgroundColor: ["blue","orange", 'gold', 'red', 'brown', 'green', '#575c45', '#09568d'],
+                    data: data_y
+                }] 
+            },
+        
+            options:{
+                title:{
+                    display:true,
+                    text: "Repartition En (%) Des Naissances Selon l'adresse Des Mères "
+                }
+            }
+        });
+        $('#save3').click(function(){
+            $('#myChart2').get(0).toBlob(function(blob){
+                saveAs(blob, 'graph.png');
+            });
+        });
+    
+    }
+
+    function chartdisplay2(result){
+
+
+        let by_mois= result.res4;
+        let data_byMois=[];
+        let total= result.res2;
+        let Mois_label=['Janv', 'Fev', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Sept', 'Oct', 'Nov', 'Dec' ]
+
+        let deces= result.res7, total_deces=result.res8;
+        let data_deces=[];
+
+
+        $.each(by_mois, (i, info)=>{
+            let resultat= ((info.total * 100) / (total[0].TOTAL)).toFixed(1);
+
+            data_byMois.push(resultat);
+        });
+
+        $.each(deces, (i, info)=>{
+            let resultat_1= ((info.total * 100) / (total_deces[0].total)).toFixed(1);
+
+            data_deces.push(resultat_1);
+            
+        });
+
+
+        Chart.defaults.global.title.display = true;
+        Chart.defaults.global.title.text = "Comparaison Taux de Mortalité et Taux de Natalités"
+
+     var ctx = document.getElementById('myChart2').getContext('2d');
+     var chart = new Chart(ctx, {
+      //The type of chart we want to create
+     type: 'line',
+
+      //The data for our dataset
+     data: {
+         labels: Mois_label,
+         datasets: [{
+             label: 'Taux de Natalité',
+             borderColor: 'green',
+             data:data_byMois 
+         },{
+            label: 'Taux de Mortalité',
+            borderColor: 'red',
+            data:data_deces 
+        }]
+     },
+
+     // Configuration options go here
+     options: {}
+ });
+
+ $('#save3').click(function(){
+    $('#myChart2').get(0).toBlob(function(blob){
+        saveAs(blob, 'graph.png');
+    });
+});
+}
+
+
+function chartdisplay4(result){
+
+    let sexe= result.res6;
+    let total= result.res2;
+    let data_x=[], data_y=[];
+
+    $.each(sexe, (i, info)=>{
+        let calcul_sexe= ((info.total * 100) / (total[0].TOTAL)).toFixed(1);
+        data_x.push(info.sexe);
+        data_y.push(calcul_sexe);
+});
+
+
+    new Chart(document.getElementById("myChart4"),{
+        type: 'pie',
+        data :{
+            labels: data_x,
+            datasets :[{
+                label: "Population (millions)",
+                backgroundColor: ["purple","#5490c4"],
+                data: data_y
+            }] 
+        },
+    
+        options:{
+            title:{
+                display:true,
+                text: 'Rapport du Masculinité du Nouveau-Nés en 2019 '
+            }
+        }
+    });
+    $('#save3').click(function(){
+        $('#myChart2').get(0).toBlob(function(blob){
+            saveAs(blob, 'graph.png');
+        });
+    });
+    
+ }
+
+
+
+
+</script>

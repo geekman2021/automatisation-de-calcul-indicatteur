@@ -1,0 +1,62 @@
+[ 
+    {
+        "lot_genre": "Moto", "code_genre": "10"
+    },
+
+    {
+         "lot_genre": "Scooter", "code_genre": "13 "
+    },
+
+    {
+         "lot_genre": "Voiture Partic", "code_genre": "21"
+    },
+
+    {
+         "lot_genre": "Voiture Familiale", "code_genre": "22"
+    },
+    
+    {
+        "lot_genre": "Voiture Tout Terrain", "code_genre": "23"
+ },
+
+    {
+         "lot_genre": "Car AutoCar", "code_genre": "31"
+    },
+    
+    {
+         "lot_genre": "Commerciale", "code_genre": "41"
+    },
+    
+    {
+         "lot_genre": "Break", "code_genre": "42"
+    },
+    
+    {
+         "lot_genre": "Camionette", "code_genre": "51"
+    },
+    
+    {
+         "lot_genre": "Cammion", "code_genre": "52"
+    },
+    
+    {
+         "lot_genre": "Speciaux", "code_genre": "70"
+    },
+    
+    {
+         "lot_genre": "Tracteur Agrigo", "code_genre": "81"
+    },
+    
+    {
+         "lot_genre": "Autres Tracteur", "code_genre": "82"
+     },
+    
+    {
+         "lot_genre": "remorque", "code_genre": "91"
+    },
+    
+    {
+         "lot_genre": "Semi-remorque", "code_genre": "92"
+    }
+
+]

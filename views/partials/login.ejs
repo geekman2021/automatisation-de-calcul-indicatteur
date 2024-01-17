@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration system PHP and MySQL</title>
+	<!-- <style>
+		body{
+			margin: 0;
+			padding: 0;
+			background: url(/images/back.jpg);
+			background-size: cover;
+			background-repeat: no-repeat;
+			font-family: sans-serif;
+		}
+		.login-box{
+			width: 350px;
+			height: 500px;
+			background: rgba(0, 0, 0, 0.5);
+			color: #fff;
+			top: 50%;
+			left: 50%;
+			position: absolute;
+			transform: translate(-50%, -50%);
+			box-sizing: border-box;
+			padding: 70px 30px;
+		}
+		.avatar{
+			width:  100px;
+			height: 100px;
+			border-radius: 50%;
+			position: absolute;
+			top: -50px;
+			left: calc(50% - 50px);
+
+		}
+		h1{
+			margin: 0;
+			padding: 0 0 20px;
+			text-align: center;
+			font-size: 22px;
+		}
+		.login-box p{
+			margin: 0;
+			padding: 0;
+			font-weight: bold;
+		}
+		.login-box input{
+			width: 100%;
+			margin-bottom: 20px;
+		}
+		.login-box input[type="email"], input[type="password"]
+		{
+			border: none;
+			border-bottom: 1px solid #fff;
+			background: transparent;
+			outline: none;
+			height: 40px;
+			color: #fff;
+			font-size: 16px;
+		}
+		.login-box input[type="submit"]
+		{
+			border: none;
+			outline: none;
+			height: 40px;
+			background: #1c8adb;
+			color: #fff;
+			font-size: 18px;
+			border-radius: 20px;
+
+		}
+		.login-box input[type="submit"]:hover
+		{
+			cursor: pointer;
+			background: #39dc79;
+			color:  #000;
+
+		}
+		.login-box a{
+			text-decoration: none;
+			font-size: 14px;
+			color: #fff;
+		}
+		.login-box a:hover{
+			color: #39dc79; 
+		}
+	</style> -->
+	<style>
+		* {
+			font-family: 'Lato', sans-serif;
+		}
+		body {
+			background-color: #59c9fc;
+		}
+		.login-div {
+			margin: 100px auto;
+			width: 350px;
+			background-color: #fff;
+			padding: 60px;
+		}
+		.logo {
+			background-color: #59c9fc;
+			width: 150px;
+			height: 150px;
+			border-radius: 50%;
+			margin: 0 auto;
+			margin-bottom: 10px;
+		}
+		.logo img {
+			width: 100%;
+		}
+		.title, .sub-title {
+			text-align: center;
+			color: #505050;
+		}
+		.title {
+			font-weight: bolder;
+			font-size: 35px;
+		}
+		.sub-title {
+			font-size: 18px;;
+		}
+		.form {
+			width: 100%;
+			margin-top: 30px;
+		}
+		.form input {
+			font-size: 18px;
+			padding: 10px 20px 10px 5px;
+			border: none;
+			outline: none;
+			background: none;
+		}
+		.username, .password {
+			display: block;
+			border-radius: 30px;
+			border: 1px solid rgba(0,0,0,0.2);
+			padding: 10px;
+			margin: 10px 0;
+ 		}
+		.form svg {
+			 height: 25px;
+			 margin-bottom: -5px;
+			 margin-left: 10px;
+			 margin-right: 5px;
+		 } 
+		 .options {
+			 display: flex;
+			 flex-direction:  row;
+			 justify-content:  space-between;
+			 padding: 5px 0px;
+			 margin-bottom: 30px;
+		 }
+		 button.signin-btn {
+			 width: 100%;
+			 padding:  12px 10px;
+			 border: none;
+			 font-size: 18px;
+			 border-radius: 30px;
+			 background-color: #59c9fc;
+			 color: #fff;
+			 margin-bottom: 5px;
+
+		 }
+
+	</style>
+</head>
+<body>
+<!-- <div class="login-box">
+	<img src="/images/img_avatar.png" class="avatar">
+	<h1>Login Here</h1>
+	<form method="post" action="/app/login">
+		<p>Email</p>
+			<input type="email" name="email" placeholder="Entrer Email">
+		<p>PassWord</p>
+			<input type="password" name="password" placeholder="Mot de Passe">
+			<input type="submit" name="submit" value="login">
+
+			<a href="registre">Creer Compte</a>
+
+	</form>
+</div> -->
+	<div class="login-div">
+		<div class="logo">
+			<img src="/images/users_192x192.png" alt="" width="150">
+		</div>
+		<div class="title">Instat 501</div>
+		<div class="sub-title">Technology & design</div>
+		<form method="post" action="/app/login">
+
+		<div class="form">
+			<div class="username">
+				<svg class="svg-icon" viewBox="0 0 20 20">
+					<path d="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775 M3.415,17.69c0.218-3.51,3.142-6.297,6.704-6.297c3.562,0,6.486,2.787,6.705,6.297H3.415z"></path>
+				</svg>
+				<input type="email" name="email" placeholder="Adresse Email">
+			</div>
+			<div class="password">
+				<svg class="svg-icon" viewBox="0 0 20 20">
+					<path d="M17.308,7.564h-1.993c0-2.929-2.385-5.314-5.314-5.314S4.686,4.635,4.686,7.564H2.693c-0.244,0-0.443,0.2-0.443,0.443v9.3c0,0.243,0.199,0.442,0.443,0.442h14.615c0.243,0,0.442-0.199,0.442-0.442v-9.3C17.75,7.764,17.551,7.564,17.308,7.564 M10,3.136c2.442,0,4.43,1.986,4.43,4.428H5.571C5.571,5.122,7.558,3.136,10,3.136 M16.865,16.864H3.136V8.45h13.729V16.864z M10,10.664c-0.854,0-1.55,0.696-1.55,1.551c0,0.699,0.467,1.292,1.107,1.485v0.95c0,0.243,0.2,0.442,0.443,0.442s0.443-0.199,0.443-0.442V13.7c0.64-0.193,1.106-0.786,1.106-1.485C11.55,11.36,10.854,10.664,10,10.664 M10,12.878c-0.366,0-0.664-0.298-0.664-0.663c0-0.366,0.298-0.665,0.664-0.665c0.365,0,0.664,0.299,0.664,0.665C10.664,12.58,10.365,12.878,10,12.878"></path>
+				</svg>
+				<input type="password" name="password" placeholder="Mot de passe">
+			</div>
+			<div class="options">
+				<div class="remember-me">
+					<input type="checkbox" id="remember-me">
+					<label for="remember-me">Remember me?</label>
+				</div>
+				<div class="forgot-password">
+					<a href="registre">Creer un Compte</a>
+				</div>
+			</div>
+			<button class="signin-btn" type="submit">Login</button>
+			
+		</div>
+		</form>
+	</div>
+	
+
+	</body>
+</html>

@@ -1,0 +1,256 @@
+<%- include('../partials/header'); -%>
+
+
+
+<!-- ////////////////////////////////////////////Liste des Marque//////////////////////////////-->
+<% if ( locals.flash && locals.flash.success) { %>
+  <script>
+    swal("Ajouter avec succès", "Cliquer sur le boutton OK", "success");
+  </script>
+<% } %>
+
+
+  <div class="container" style="background-color: #f3f3f3;">
+    <form action="" method="get">
+      <div class="col-md-7">
+         <div class="row">
+           <h2> <i class="fa fa-angle-right"></i> Liste Marque</h2>
+          </div>
+      </div>
+      
+      <table class="table table-striped table-advance table-hover " style="text-align: center" id='data'>
+    <div class="col-md-5" style="padding-top: 20px;">
+      <button type="button" class="btn btn-primary btn-md pull-right fa fa-plus" data-toggle="modal" data-target="#myModal"> Nouveau Marque</button>
+    </div>
+ 
+    </form>
+ 
+    <thead>
+      <tr>
+
+         <th style="text-align: center"> Code Marque</th>
+        <th  style="text-align: center"> Nom Marque</th>
+        <th  style="text-align: center"> Action </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% if (list_marques.length>0) { %>
+        <% list_marques.forEach(marque =>{ %>
+        
+      <tr>
+
+        <td><%= marque.code_marque  %></td>
+        <td><%= marque.nom_marque  %></td>
+        <td >
+          <button type="button" data-toggle="modal" data-target="#modal_modif" class="btn btn-primary btn-xs" onclick="update_data('<%= marque.code_marque  %>', '<%= marque.nom_marque  %>') "><i class="fa fa-edit"></i></button>
+          <button type="button" data-toggle="modal" data-target="#modal_supprimer" class="btn btn-danger btn-xs" onclick="supprimer('<%= marque.code_marque  %>', '<%= marque.nom_marque  %>') "><i class="fa fa-trash"></i></button>
+        </td>
+
+      </tr>
+         <% })  %>
+         <% } else{ %>
+          liste vide
+          <% } %>
+    </tbody>
+  </table>
+  </div>
+  
+  
+
+
+
+
+<!-- ////////////////////////////////////////////Modal Ajouter//////////////////////////////-->
+
+<div class="container">
+    
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Ajouter Marque</h4>
+            </div>
+            <form action="marque" method="post">
+              <div class="col-md-6">
+                  <label for="code_marque"> Code Marque</label>
+                  <input type="text" class="form-control" id="code_marque" name="code_marque">
+              </div>
+              <div class="col-md-6">
+                <label for="nom_marque">Lot Marque</label>
+                <input type="text" class="form-control" id="nom_marque" name="nom_marque">
+              </div><br><br><br>
+              <div class="modal-footer">
+
+                  <div class="md-12" style="display: flex; justify-content: center; align-items: center;">
+                    <button type="submit" class="btn btn-success btn-md" ><i class="fa fa-check">Ajouter</i></button>
+                    <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+                    
+
+                  </div>
+              
+              </div>
+            </form>
+
+        </div>
+        
+      </div>
+    </div>
+    
+</div>
+
+<!-- -----------------------------------Modal Supprimer--------------------------------->
+  
+
+<div class="container">
+    
+  <div class="modal fade" id="modal_supprimer" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Voulez Vous  vraiment Supprimer &nbsp;<b id="nom_marqueSupp" > </b> &nbsp; dans la liste ?</h4>
+          </div>
+          <form action="/app/supp_marque" method="post">
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="code_marqueSupp" name="marque_supp" style="display: none;">
+      
+
+            </div>
+           
+            <div class="modal-footer">
+                <div class="md-12" style="display: flex; justify-content: center; align-items: center;">
+                  <button type="button" class="btn btn-default btn-md" data-dismiss="modal"> <i class="fa fa-times"> NON </i></button>
+                  <button type="submit" class="btn btn-danger btn-md"><i class="fa fa-check"> OUI </i></button>
+            </div>
+            
+            </div>
+          </form>
+
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+<!-- ////////////////////////////////////////////Modal Modifier//////////////////////////////-->
+<div class="container">
+    
+  <div class="modal fade" id="modal_modif" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Modifier Marque</h4>
+          </div>
+          <form action="/app/modif_marque/" method="post">
+            <div class="col-md-6">
+                <label for="code_marque"> Code Marque</label>
+                <input type="text" class="form-control" id="code_marqueModif" name="code_marqueModif" style="display: none;">
+                <input type="text" class="form-control" id="code_marqueModif1" name="code_marqueModif1">
+            </div>
+            <div class="col-md-6">
+              <label for="nom_marque">Lot Marque</label>
+              <input type="text" class="form-control" id="nom_marqueModif" name="nom_marqueModif">
+            </div><br><br><br>
+            <div class="modal-footer">
+                <div class="md-12" style="display: flex; justify-content: center; align-items: center;">
+
+                  <button type="submit" class="btn btn-info btn-md" ><i class="fa fa-save"> Enregistrer </i></button>
+                  <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+                </div>
+            
+            </div>
+          </form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer'); -%>
+
+
+
+
+
+<script>
+  function supprimer(id, nom){
+    document.getElementById('code_marqueSupp').value= id;
+    document.getElementById('nom_marqueSupp').innerHTML= nom 
+  }
+
+  function update_data(code_marque, nom_marque){
+      document.getElementById('code_marqueModif1').value= code_marque;
+      document.getElementById('nom_marqueModif').value=nom_marque;
+      document.getElementById('code_marqueModif').value= code_marque;
+  }
+  
+//window.onload= swal("Good job!", "You clicked the button!", "success");
+
+  
+
+
+
+
+  ////////////////////recherche////////////////////////////////////////////
+
+
+  /*const searchFun = ()=>{
+    let filter =  document.getElementById('search').value.toUpperCase();
+  //	let myTable = document.getElementById('data');
+    let tr = data.getElementsByTagName('tr');
+   
+    for(var i = 0; i<tr.length; i++){
+      let tda = tr[i].getElementsByTagName('td')[0];
+      let tde = tr[i].getElementsByTagName('td')[1];
+      
+      
+      if(tda || tde){
+        let textvalue = tda.textContent || tda.innerHTML;
+        let textv = tde.textContent || tde.innerHTML;
+  
+        if(textvalue.toUpperCase().indexOf(filter) > -1){
+          tr[i].style.display = "";
+        
+        }else if(textv.toUpperCase().indexOf(filter) > -1){
+          tr[i].style.display = "";
+         
+        
+        }else{
+          tr[i].style.display = "none";
+        
+          
+        }
+  
+      }
+      
+     
+     
+      
+  
+    }
+  }*/
+
+
+  $(document).ready(function(){
+    $('#data').DataTable({
+      "order": [[0, "desc"]]
+    });
+  });
+
+  
+</script>
+
+</body>
+</html>

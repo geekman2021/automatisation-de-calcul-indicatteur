@@ -1,0 +1,243 @@
+<%- include('../partials/header'); -%>
+
+<div class="container-fluid">
+    <div class="row g-2" >
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart" style="background-color:rgba(185, 240, 231, 0.5);"></canvas>
+				
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save2" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart2" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div> 
+        </div> 
+        <div class="col-lg-6" style="margin-top: 20px;">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save3" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart3" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6" style="margin-top: 20px;">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save4" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart4" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.onload= function(){
+            $.ajax({
+                url: '/app/graphique_deces',
+                method: 'post',
+                dataType: 'json',
+
+                success:(resultat)=>{
+                    chartdisplay1(resultat);
+                    chartdisplay2(resultat);
+                    chartdisplay3(resultat);
+                    chartdisplay4(resultat);
+                }
+
+            });
+        }
+    
+
+    
+</script>
+
+<script>
+    function chartdisplay1(result){
+        
+        let by_mois= result.res1;
+        let data_x_mois= ['Janv', 'Fev', 'Mars', 'Avr', 'Mai', 'Juin', 'Juill', 'Aout', 'Sept','Oct','Nov', 'Dec'];
+        let data_y_masculin=[], data_y_feminin=[], data_y_total=[];
+
+
+        $.each(by_mois, (i, info)=>{
+            data_y_masculin.push(info.masculin);
+            data_y_feminin.push(info.feminin)
+            data_y_total.push(info.total);
+        });
+
+        console.log(data_y_feminin);
+
+
+
+
+    Chart.defaults.global.title.display = true;
+    Chart.defaults.global.title.text = "Deces Enregistrer Par mois (En nombre)"
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      //The type of chart we want to create
+    type: 'line',
+
+      //The data for our dataset
+     data: {
+         labels: data_x_mois,
+         datasets: [{
+             label: 'Masculin',
+             borderColor: 'green',
+             data: data_y_masculin
+         },
+         {
+            label: 'Feminin',
+            borderColor: 'yellow',
+            data: data_y_feminin
+        },
+        {
+            label: 'Total',
+            borderColor: 'red',
+            data: data_y_total
+        }]
+     },
+
+     // Configuration options go here
+     options: {}
+ });
+
+ $('#save').click(function(){
+	$('#myChart').get(0).toBlob(function(blob){
+		saveAs(blob, 'graph.png');
+	});
+});
+}
+
+function chartdisplay2(result) {
+    
+        let Age=result.res2;
+        let masculin=[], feminin=[], total=[];
+        let data_x=['moins 1 ans', '1-4ans', '5-9ans', '10-14ans', '15-19ans', '20-24ans', '25-29ans', '30-34ans', '35-39ans', '40-44ans', '45-49ans', '50-54ans', '55-59ans', '60-64ans', '65-69ans', '70ans et plus'];
+        $.each(Age, (i, info)=>{
+            masculin.push(info.masculin);
+            feminin.push(info.feminin);
+            total.push(info.TOTAL);
+        });
+        console.log(masculin);
+
+    Chart.defaults.global.title.display= true;
+    Chart.defaults.global.title.text= "Cumule Deces Enregistrer Selon leur Age " ;
+
+    var ctx= document.getElementById('myChart2').getContext('2d');
+    var chart= new Chart(ctx, {
+// The type of chart we want to create
+    type: 'bar',
+
+//the data our dataset
+    data: {
+    labels: data_x,
+    datasets: [{
+         label: 'Feminin',
+         backgroundColor:  "purple",
+         data: masculin
+     }, {
+         label: 'Masculin',
+         backgroundColor: "	#00477e",
+         data: masculin
+     },{
+        label: 'Total',
+        backgroundColor: "#a6001a",
+        data: total
+    }]
+
+
+    },
+    // configuration options go here
+    options: {}
+});
+
+$('#save').click(function(){
+$('#myChart2').get(0).toBlob(function(blob){
+    saveAs(blob, 'graph.png');
+});
+});
+
+
+}
+
+function chartdisplay3(result){
+
+    let fs= result.res3;
+    let data_x=[], data_y=[];
+    $.each(fs, (i, info)=>{
+        data_x.push(info.formation_sanitaire);
+        data_y.push(info.TOTAL);
+    })
+
+
+    
+    new Chart(document.getElementById("myChart3"),{
+        type: 'pie',
+        
+        data :{
+            labels: data_x,
+            datasets :[{
+                label: "Population (millions)",
+                backgroundColor: ["purple","orange"],
+                data: data_y
+            }] 
+        },
+    
+        options:{
+            title:{
+                display:true,
+                text: 'Rapport du Masculinité du Nouveau-Nés en 2019 '
+            }
+        }
+    });
+    $('#save3').click(function(){
+        $('#myChart3').get(0).toBlob(function(blob){
+            saveAs(blob, 'graph.png');
+        });
+    });
+
+}
+
+
+
+function chartdisplay4(result){
+
+    let adresse= result.res4;
+    let data_x=[], data_y=[];
+    $.each(adresse, (i, info)=>{
+        data_x.push(info.libelle_adresse);
+        data_y.push(info.total);
+    })
+
+    console.log(data_y);
+    console.log(data_x);
+    
+    new Chart(document.getElementById("myChart4"),{
+        type: 'polarArea',
+        
+        data :{
+            labels: data_x,
+            datasets :[{
+                label: "Population (millions)",
+                backgroundColor: ["blue","orange", 'gold', 'red', 'brown', 'green', '#575c45', '#09568d'],
+                data: data_y
+            }] 
+        },
+    
+        options:{
+            title:{
+                display:true,
+                text: 'Rapport du Masculinité du Nouveau-Nés en 2019 '
+            }
+        }
+    });
+    $('#save4').click(function(){
+        $('#myChart4').get(0).toBlob(function(blob){
+            saveAs(blob, 'graph.png');
+        });
+    });
+
+}
+</script>

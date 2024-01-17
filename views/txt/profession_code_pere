@@ -1,0 +1,486 @@
+/*
+
+                $('#tbody').html(
+                    `<tr>
+                        <th  colspan="6" style="padding-left: 150px;">Lieu Deces</th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res[0].formation_sanitaire}</td>
+                        <td style="text-align: center;">${result.res[0].lieu_deces_1}</td>
+                        <td style="text-align: center;">${result.res2[0].lieu_deces_2} </td>
+                        <td style="text-align: center;">${result.res3[0].lieu_deces_3} </td>
+                        <td style="text-align: center;">${result.res4[0].lieu_deces_4} </td>
+                        <td style="text-align: center;">${result.res5[0].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res[1].formation_sanitaire}</td>
+                        <td style="text-align: center;">${result.res[1].lieu_deces_1}</td>
+                        <td style="text-align: center;">${result.res2[1].lieu_deces_2} </td>
+                        <td style="text-align: center;">${result.res3[1].lieu_deces_3} </td>
+                        <td style="text-align: center;">${result.res4[1].lieu_deces_4} </td>
+                        <td style="text-align: center;">${result.res5[1].total} </td>
+                    </tr>
+                    <tr>
+                        <th  colspan="6" style="padding-left: 150px;" >District</th>
+                    </tr>
+                      <tr>
+                        <td style="text-align: center;">${result.res6[2].district}</td>
+                        <td style="text-align: center;">${result.res6[2].nbre_1}</td>
+                        <td style="text-align: center;">${result.res7[2].nbre_2} </td>
+                        <td style="text-align: center;">${result.res8[1].nbre_3} </td>
+                        <td style="text-align: center;">${result.res9[2].nbre_4} </td>
+                        <td style="text-align: center;">${result.res10[2].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res6[1].district}</td>
+                        <td style="text-align: center;">${result.res6[1].nbre_1}</td>
+                        <td style="text-align: center;">${result.res7[1].nbre_2} </td>
+                        <td style="text-align: center;">${result.res8[0].nbre_3} </td>
+                        <td style="text-align: center;">${result.res9[1].nbre_4} </td>
+                        <td style="text-align: center;">${result.res10[1].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res6[0].district}</td>
+                        <td style="text-align: center;">${result.res6[0].nbre_1}</td>
+                        <td style="text-align: center;">${result.res7[0].nbre_2} </td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">${result.res9[0].nbre_4} </td>
+                        <td style="text-align: center;">${result.res10[0].total} </td>
+                    </tr>
+                    <tr>
+                        <th  colspan="6" style="padding-left: 150px;" >Quartier Residence</th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res11[0].libelle_adresse}</td>
+                        <td style="text-align: center;">${result.res11[0].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res12[0].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res13[0].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res14[0].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res15[0].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res11[1].libelle_adresse}</td>
+                        <td style="text-align: center;">${result.res11[1].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res12[1].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res13[1].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res14[1].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res15[1].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res11[2].libelle_adresse}</td>
+                        <td style="text-align: center;">${result.res11[2].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res12[2].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res13[2].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res14[2].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res15[2].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res11[3].libelle_adresse}</td>
+                        <td style="text-align: center;">${result.res11[3].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res12[3].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res13[3].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res14[3].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res15[3].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res11[4].libelle_adresse}</td>
+                        <td style="text-align: center;">${result.res11[4].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res12[4].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res13[4].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res14[4].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res15[4].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res11[5].libelle_adresse}</td>
+                        <td style="text-align: center;">${result.res11[5].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res12[5].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res13[5].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res14[5].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res15[5].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res11[6].libelle_adresse}</td>
+                        <td style="text-align: center;">${result.res11[6].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res12[6].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res13[6].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res14[6].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res15[6].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res11[7].libelle_adresse}</td>
+                        <td style="text-align: center;">${result.res11[7].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res12[7].trimestre_2} </td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">${result.res14[7].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res15[7].total} </td>
+                    </tr>
+                    <tr>
+                        <th  colspan="6" style="padding-left: 150px;" >Sexe</th>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res16[0].sexe}</td>
+                        <td style="text-align: center;">${result.res16[0].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res17[0].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res18[0].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res19[0].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res20[0].total} </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">${result.res16[1].sexe}</td>
+                        <td style="text-align: center;">${result.res16[1].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res17[1].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res18[1].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res19[1].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res20[1].total} </td>
+
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Total</td>
+                        <td style="text-align: center;">${result.res16[1].trimestre_1}</td>
+                        <td style="text-align: center;">${result.res17[1].trimestre_2} </td>
+                        <td style="text-align: center;">${result.res18[1].trimestre_3}</td>
+                        <td style="text-align: center;">${result.res19[1].trimestre_4} </td>
+                        <td style="text-align: center;">${result.res20[1].total} </td>
+                    </tr>`);
+                
+                $('#tbody1').html(
+                    `<tr>
+                        <td style="text-align: center;">Janvier</td>
+                        <td style="text-align: center;">${result.res21[2].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[0].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[0].total}</td>
+                        <td style="text-align: center;">${result.res21[3].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[1].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[12].total}</td>
+                        <td style="text-align: center;">${result.res22[1].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[0].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Fevrier</td>
+                        <td style="text-align: center;">${result.res21[6].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[4].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[1].total}</td>
+                        <td style="text-align: center;">${result.res21[7].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[5].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[13].total}</td>
+                        <td style="text-align: center;">${result.res22[3].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[2].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[1].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Mars</td>
+                        <td style="text-align: center;">${result.res21[10].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[8].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[2].total}</td>
+                        <td style="text-align: center;">${result.res21[11].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[9].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[14].total}</td>
+                        <td style="text-align: center;">${result.res22[5].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[4].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[2].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Avril</td>
+                        <td style="text-align: center;">${result.res21[14].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[12].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[3].total}</td>
+                        <td style="text-align: center;">${result.res21[15].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[13].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[15].total}</td>
+                        <td style="text-align: center;">${result.res22[7].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[6].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[3].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Mai</td>
+                        <td style="text-align: center;">${result.res21[18].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[16].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[4].total}</td>
+                        <td style="text-align: center;">${result.res21[19].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[17].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[16].total}</td>
+                        <td style="text-align: center;">${result.res22[9].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[8].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[4].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Juin</td>
+                        <td style="text-align: center;">${result.res21[22].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[20].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[5].total}</td>
+                        <td style="text-align: center;">${result.res21[23].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[21].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[17].total}</td>
+                        <td style="text-align: center;">${result.res22[11].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[10].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[5].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Juillet</td>
+                        <td style="text-align: center;">${result.res21[26].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[24].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[6].total}</td>
+                        <td style="text-align: center;">${result.res21[27].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[25].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[18].total}</td>
+                        <td style="text-align: center;">${result.res22[13].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[12].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[6].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Août</td>
+                        <td style="text-align: center;">${result.res21[30].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[28].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[7].total}</td>
+                        <td style="text-align: center;">${result.res21[31].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[29].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[19].total}</td>
+                        <td style="text-align: center;">${result.res22[15].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[14].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[7].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Septembre</td>
+                        <td style="text-align: center;">${result.res21[34].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[32].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[8].total}</td>
+                        <td style="text-align: center;">${result.res21[35].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[33].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[20].total}</td>
+                        <td style="text-align: center;">${result.res22[17].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[16].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[8].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Octobre</td>
+                        <td style="text-align: center;">${result.res21[38].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[36].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[9].total}</td>
+                        <td style="text-align: center;">${result.res21[39].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[37].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[21].total}</td>
+                        <td style="text-align: center;">${result.res22[19].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[18].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[9].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Novembre</td>
+                        <td style="text-align: center;">${result.res21[42].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[40].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[10].total}</td>
+                        <td style="text-align: center;">${result.res21[43].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[41].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[22].total}</td>
+                        <td style="text-align: center;">${result.res22[20].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[20].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[10].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">Decembre</td>
+                        <td style="text-align: center;">${result.res21[46].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[44].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[11].total}</td>
+                        <td style="text-align: center;">${result.res21[47].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[45].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[23].total}</td>
+                        <td style="text-align: center;">${result.res22[23].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[22].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[11].total}</td>
+                    </tr>`
+                );
+                $('#tbody2').html(
+                    `<tr>
+                        <td style="text-align: center;">Moins 1 ans</td>
+                        <td style="text-align: center;">${result.res21[0].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[2].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[0].total}</td>
+                        <td style="text-align: center;">${result.res21[1].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[3].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[12].total}</td>
+                        <td style="text-align: center;">${result.res22[0].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[1].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">1 à 4 ans</td>
+                        <td style="text-align: center;">${result.res25[0].nbre}</td>
+                        <td style="text-align: center;">${result.res25[1].nbre} </td>
+                        <td style="text-align: center;">${result.res40[0].total}</td>
+                        <td style="text-align: center;">${result.res25[2].nbre} </td>
+                        <td style="text-align: center;">${result.res25[3].nbre} </td>
+                        <td style="text-align: center;">${result.res40[1].total}</td>
+                        <td style="text-align: center;">${result.res70[0].sexe}</td>
+                        <td style="text-align: center;">${result.res70[1].sexe}</td>
+                        <td style="text-align: center;">${result.res55[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">5 à 9 ans</td>
+                        <td style="text-align: center;">${result.res26[0].nbre}</td>
+                        <td style="text-align: center;">${result.res26[1].nbre} </td>
+                        <td style="text-align: center;">${result.res41[0].total}</td>
+                        <td style="text-align: center;">${result.res26[2].nbre} </td>
+                        <td style="text-align: center;">${result.res26[3].nbre} </td>
+                        <td style="text-align: center;">${result.res41[1].total}</td>
+                        <td style="text-align: center;">${result.res71[0].sexe}</td>
+                        <td style="text-align: center;">${result.res71[1].sexe}</td>
+                        <td style="text-align: center;">${result.res56[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">10 à 14 ans</td>
+                        <td style="text-align: center;">${result.res27[0].nbre}</td>
+                        <td style="text-align: center;">${result.res27[1].nbre} </td>
+                        <td style="text-align: center;">${result.res42[0].total}</td>
+                        <td style="text-align: center;">${result.res27[2].nbre} </td>
+                        <td style="text-align: center;">${result.res27[3].nbre} </td>
+                        <td style="text-align: center;">${result.res42[1].total}</td>
+                        <td style="text-align: center;">${result.res72[0].sexe}</td>
+                        <td style="text-align: center;">${result.res72[1].sexe}</td>
+                        <td style="text-align: center;">${result.res57[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">15 à 19 ans</td>
+                        <td style="text-align: center;">${result.res28[0].nbre}</td>
+                        <td style="text-align: center;">${result.res28[1].nbre} </td>
+                        <td style="text-align: center;">${result.res43[0].total}</td>
+                        <td style="text-align: center;">${result.res28[2].nbre} </td>
+                        <td style="text-align: center;">${result.res28[3].nbre} </td>
+                        <td style="text-align: center;">${result.res43[1].total}</td>
+                        <td style="text-align: center;">${result.res73[0].sexe}</td>
+                        <td style="text-align: center;">${result.res73[1].sexe}</td>
+                        <td style="text-align: center;">${result.res58[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">20 à 24 ans</td>
+                        <td style="text-align: center;">${result.res29[0].nbre}</td>
+                        <td style="text-align: center;">${result.res29[1].nbre} </td>
+                        <td style="text-align: center;">${result.res44[0].total}</td>
+                        <td style="text-align: center;">${result.res29[2].nbre} </td>
+                        <td style="text-align: center;">${result.res29[3].nbre} </td>
+                        <td style="text-align: center;">${result.res44[1].total}</td>
+                        <td style="text-align: center;">${result.res74[0].sexe}</td>
+                        <td style="text-align: center;">${result.res74[1].sexe}</td>
+                        <td style="text-align: center;">${result.res59[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">25 à 29 ans</td>
+                        <td style="text-align: center;">${result.res30[0].nbre}</td>
+                        <td style="text-align: center;">${result.res30[1].nbre} </td>
+                        <td style="text-align: center;">${result.res45[0].total}</td>
+                        <td style="text-align: center;">${result.res30[2].nbre} </td>
+                        <td style="text-align: center;">${result.res30[3].nbre} </td>
+                        <td style="text-align: center;">${result.res45[1].total}</td>
+                        <td style="text-align: center;">${result.res75[0].sexe}</td>
+                        <td style="text-align: center;">${result.res75[1].sexe}</td>
+                        <td style="text-align: center;">${result.res60[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">30 à 34 ans</td>
+                        <td style="text-align: center;">${result.res31[0].nbre}</td>
+                        <td style="text-align: center;">${result.res31[1].nbre} </td>
+                        <td style="text-align: center;">${result.res46[0].total}</td>
+                        <td style="text-align: center;">${result.res31[2].nbre} </td>
+                        <td style="text-align: center;">${result.res31[3].nbre} </td>
+                        <td style="text-align: center;">${result.res46[1].total}</td>
+                        <td style="text-align: center;">${result.res76[0].sexe}</td>
+                        <td style="text-align: center;">${result.res76[1].sexe}</td>
+                        <td style="text-align: center;">${result.res61[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">35 à 39 ans</td>
+                        <td style="text-align: center;">${result.res32[0].nbre}</td>
+                        <td style="text-align: center;">${result.res32[1].nbre} </td>
+                        <td style="text-align: center;">${result.res47[0].total}</td>
+                        <td style="text-align: center;">${result.res32[2].nbre} </td>
+                        <td style="text-align: center;">${result.res32[3].nbre} </td>
+                        <td style="text-align: center;">${result.res47[1].total}</td>
+                        <td style="text-align: center;">${result.res77[0].sexe}</td>
+                        <td style="text-align: center;">${result.res77[1].sexe}</td>
+                        <td style="text-align: center;">${result.res62[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">40 à 44 ans</td>
+                        <td style="text-align: center;">${result.res33[0].nbre}</td>
+                        <td style="text-align: center;">${result.res33[1].nbre} </td>
+                        <td style="text-align: center;">${result.res48[0].total}</td>
+                        <td style="text-align: center;">${result.res33[2].nbre} </td>
+                        <td style="text-align: center;">${result.res33[3].nbre} </td>
+                        <td style="text-align: center;">${result.res48[1].total}</td>
+                        <td style="text-align: center;">${result.res78[0].sexe}</td>
+                        <td style="text-align: center;">${result.res78[1].sexe}</td>
+                        <td style="text-align: center;">${result.res63[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">45 à 49 ans</td>
+                        <td style="text-align: center;">${result.res34[0].nbre}</td>
+                        <td style="text-align: center;">${result.res34[1].nbre} </td>
+                        <td style="text-align: center;">${result.res49[0].total}</td>
+                        <td style="text-align: center;">${result.res34[2].nbre} </td>
+                        <td style="text-align: center;">${result.res34[3].nbre} </td>
+                        <td style="text-align: center;">${result.res49[1].total}</td>
+                        <td style="text-align: center;">${result.res79[0].sexe}</td>
+                        <td style="text-align: center;">${result.res79[1].sexe}</td>
+                        <td style="text-align: center;">${result.res64[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">50 à 54 ans</td>
+                        <td style="text-align: center;">${result.res35[0].nbre}</td>
+                        <td style="text-align: center;">${result.res35[1].nbre} </td>
+                        <td style="text-align: center;">${result.res50[0].total}</td>
+                        <td style="text-align: center;">${result.res35[2].nbre} </td>
+                        <td style="text-align: center;">${result.res35[3].nbre} </td>
+                        <td style="text-align: center;">${result.res50[1].total}</td>
+                        <td style="text-align: center;">${result.res80[0].sexe}</td>
+                        <td style="text-align: center;">${result.res80[1].sexe}</td>
+                        <td style="text-align: center;">${result.res65[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">55 à 59 ans</td>
+                        <td style="text-align: center;">${result.res36[0].nbre}</td>
+                        <td style="text-align: center;">${result.res36[1].nbre} </td>
+                        <td style="text-align: center;">${result.res51[0].total}</td>
+                        <td style="text-align: center;">${result.res36[2].nbre} </td>
+                        <td style="text-align: center;">${result.res36[3].nbre} </td>
+                        <td style="text-align: center;">${result.res51[1].total}</td>
+                        <td style="text-align: center;">${result.res81[0].sexe}</td>
+                        <td style="text-align: center;">${result.res81[1].sexe}</td>
+                        <td style="text-align: center;">${result.res66[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">60 à 64 ans</td>
+                        <td style="text-align: center;">${result.res37[0].nbre}</td>
+                        <td style="text-align: center;">${result.res37[1].nbre} </td>
+                        <td style="text-align: center;">${result.res52[0].total}</td>
+                        <td style="text-align: center;">${result.res37[2].nbre} </td>
+                        <td style="text-align: center;">${result.res37[3].nbre} </td>
+                        <td style="text-align: center;">${result.res52[1].total}</td>
+                        <td style="text-align: center;">${result.res82[0].sexe}</td>
+                        <td style="text-align: center;">${result.res82[1].sexe}</td>
+                        <td style="text-align: center;">${result.res67[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">65 à 69 ans</td>
+                        <td style="text-align: center;">${result.res38[0].nbre}</td>
+                        <td style="text-align: center;">${result.res38[1].nbre} </td>
+                        <td style="text-align: center;">${result.res53[0].total}</td>
+                        <td style="text-align: center;">${result.res38[2].nbre} </td>
+                        <td style="text-align: center;">${result.res38[3].nbre} </td>
+                        <td style="text-align: center;">${result.res53[1].total}</td>
+                        <td style="text-align: center;">${result.res83[0].sexe}</td>
+                        <td style="text-align: center;">${result.res83[1].sexe}</td>
+                        <td style="text-align: center;">${result.res68[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">70 ans et plus</td>
+                        <td style="text-align: center;">${result.res39[0].nbre}</td>
+                        <td style="text-align: center;">${result.res39[1].nbre} </td>
+                        <td style="text-align: center;">${result.res54[0].total}</td>
+                        <td style="text-align: center;">${result.res39[2].nbre} </td>
+                        <td style="text-align: center;">${result.res39[3].nbre} </td>
+                        <td style="text-align: center;">${result.res54[1].total}</td>
+                        <td style="text-align: center;">${result.res84[0].sexe}</td>
+                        <td style="text-align: center;">${result.res84[1].sexe}</td>
+                        <td style="text-align: center;">${result.res69[0].total}</td>
+                    </tr>`);
+                    $('#tableau_2').hide();
+                    $('#tableau_3').hide();*/

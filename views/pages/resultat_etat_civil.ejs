@@ -1,0 +1,191 @@
+<%- include('../partials/header'); -%>
+
+
+
+
+<div class="container">
+    <div class="btn-group btn-group-justified">
+        <a href="#" class="btn btn-success" data-toggle='collapse' data-target="#tableau_1" >Groupe Age Parents</a>
+        <a href="#" class="btn btn-success" data-toggle='collapse' data-target="#tableau_2">Sexe</a>
+        <a href="#" class="btn btn-success" data-toggle='collapse' data-target="#tableau_3">Age Parents</a>
+</div>
+</div>
+
+
+<div class="container collapse" id="tableau_1"style="margin-top: 50px">
+    
+    <table class="table table-striped table-advance table-hover table-bordered">
+        <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>Repartition (En %) Des Parents de nouveau-nés par Groupe d'Age </h4></caption>
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: center; padding-bottom: 25px">Groupe D'age</th>
+                <th colspan="2" style="text-align: center;">Mere</th>
+                <th colspan="2" style="text-align: center;">Pere</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">Effectif</th>
+                <th style="text-align: center;">proportion</th>
+                <th style="text-align: center;">Effectif</th>
+                <th style="text-align: center;">proportion</th>
+            </tr>
+        </thead>
+        <tbody id="tbody1" style="text-align: center;">
+
+        </tbody>
+        <tfoot id="tfoot1" style="background-color: #ffcf6b;">
+
+        </tfoot>
+    </table>
+</div>
+
+
+<div class="container collapse" id="tableau_2" style="margin-top: 50px">
+    
+    <table class="table table-striped table-advance table-hover table-bordered" >
+        <!-- <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>AGE DES PARENTS DES NOUVEAU-Nés EN 2019 (EN ANNées)</h4></caption> -->
+        <thead>
+            <tr>
+                <th style="text-align: center; padding-top: 25px;">SEXE</th>
+                <th style="text-align: center;">Effectif</th>
+                <th style="text-align: center;">Proportion</th>
+            </tr>
+        </thead>
+        <tbody id="tbody2" style="text-align: center;">
+
+        </tbody>
+        <tfoot id="tfoot2" style="background-color: #ffcf6b; text-align:center">
+
+        </tfoot>
+    </table>
+</div>
+
+
+<div class="container collapse" id="tableau_3" style="margin-top: 50px">
+    
+    <table class="table table-striped table-advance table-hover table-bordered" >
+        <!-- <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>Rapport des nouveau-nés</h4></caption> -->
+        <thead>
+            <tr>
+                <th style="text-align: center; padding-top: 25px;">Paramètres</th>
+                <th style="text-align: center;">Mère</th>
+                <th style="text-align: center;">Père</th>
+            </tr>
+        </thead>
+        <tbody id="tbody3">
+
+        </tbody>
+        <tfoot id="tfoot3" style="background-color: #ffcf6b;">
+        </tfoot>
+    </table>
+</div>
+
+
+<!-- //////////////////    Script    //////////////////////////-->
+<script>
+    window.onload= $("document").ready(function(){
+        $.ajax({
+            url: '/app/resultat_etat_civil',
+            method: "POST",
+            dataType: 'json',
+            success: (result)=>{
+
+                let group_age_parent= result.res1;
+                let total= result.res2;
+                let nouveau_ne= result.res3;
+                let Param= result.res4;
+
+                let Lib_Age=['Moins 15 ans', '15 à 19 ans', '20 à 24 ans', '25 à 29 ans', '30 à 34 ans', '35 à 39 ans', '40 à 44 ans', '45 à 49 ans', '50 à 54 ans', '55 à 60 ans', '60 ans et plus', 'Manquant'];
+                let sexe=['Masculin', 'Feminin'];
+                let Param_lib=['Age minimum', 'Age Moyenne', 'Age Maximum'];
+
+                $.each(group_age_parent, (i, info)=>{
+                    $('#tbody1').append(
+                        `<tr>
+                            <td>${Lib_Age[i]}</td>
+                            <td>${info.age_mere}</td>
+                            <td>${((info.age_mere * 100) / (total[0].TOTAL)).toFixed(1) }%</td>
+                            <td>${((info.age_pere * 100) / (total[0].TOTAL)).toFixed(1) }%</td>
+                            <td>${info.age_pere}</td>
+                        <tr>`
+                    );
+                });
+
+                $.each(total, (i, info)=>{
+                    $('#tfoot1').append(
+                        `<tr>
+                            <td>TOTAL</td>
+                            <td>${info.TOTAL}</td>
+                            <td>${(info.TOTAL *100) / (info.TOTAL) }</td>
+                            <td>${info.TOTAL}</td>
+                            <td>${(info.TOTAL *100) / (info.TOTAL) }<td>
+                        <tr>`
+                    );
+                });
+
+                $.each(nouveau_ne, (i, info)=>{
+                    $('#tbody2').append(
+                        `<tr>
+                            <td>${sexe[i]}</td>
+                            <td>${info.effectif}</td>
+                            <td>${((info.effectif *100) / total[0].TOTAL).toFixed(2)}</td>
+                        <tr>`
+                    );
+                });
+
+                $.each(total, (i, info)=>{
+                    $('#tfoot2').append(
+                        `<tr>
+                            <th style="text-align:center;">TOTAL</th>
+                            <th style="text-align:center;">${info.TOTAL}</th>
+                            <th style="text-align:center;">${(info.TOTAL *100) / (info.TOTAL) }</th>
+                        <tr>`
+                    );
+                });
+
+                $.each(Param, (i, info)=>{
+                    $('#tbody3').append(
+                        `<tr>
+                            <td style="text-align:center;">${Param_lib[i]}</td>
+                            <td style="text-align:center;">${info.min_mere}</td>
+                            <td style="text-align:center;">${info.min_pere}</th>
+                        <tr>`
+                    );
+                });
+                
+              //  $('#tableau_2').hide();
+              //  $('#tableau_3').hide();
+                
+
+            },
+            error: ()=>{
+                console.log('error');
+            }
+
+        });
+    });
+
+    /*function Affiche_groupeA(){
+        $('#tableau_1').show();
+        $('#tableau_2').hide();
+        $('#tableau_3').hide();
+
+    }
+    function affiche_P(){
+        $('#tableau_1').hide();
+        $('#tableau_2').show();
+        $('#tableau_3').hide();
+
+    }
+    function affiche_N(){
+        $('#tableau_1').hide();
+        $('#tableau_2').hide();
+        $('#tableau_3').show();
+
+    }
+
+function voir(){
+   
+}*/
+</script>
+</body>
+</html>

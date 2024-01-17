@@ -1,0 +1,317 @@
+<%- include('../partials/header'); -%>
+<div class="container-fluid">
+    <div class="row g-2" >
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info btn-md" id="save" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart" style="background-color:rgba(185, 240, 231, 0.5);"></canvas>
+				
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save2" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart2" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div> 
+        </div> 
+        <div class="col-lg-6" style="margin-top: 20px;">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save3" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart3" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div>
+        </div>
+        <div class="col-lg-6" style="margin-top: 20px;">
+            <div class="p-3 border bg-light">
+				<button class="btn btn-info" id="save4" style="position:  absolute; top: 7px; right: 25px"><i class="fa fa-download"></i></button>
+                <canvas id="myChart4" style="background-color:rgba(185, 240, 231, 0.5); width: 50px"></canvas>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+	window.onload= function(){
+		$.ajax({
+			url: '/app/graphique',
+			method: 'post', 
+			dataType: 'json',
+
+			success:(result)=>{
+				chartdisplay1(result);
+				chartdisplay2(result);
+				chartdisplay3(result);
+				chartdisplay4(result);
+			}
+		})
+	}
+
+
+
+</script>
+
+
+<script>
+
+	function chartdisplay1(result){
+		let by_trimestre= result.res1;
+
+		let total_byTrim= result.res2;
+
+		let total_trim1, total_trim2, total_trim3, total_trim4;
+
+		let data_y=[], data_x=[];
+
+		$.each(total_byTrim, (i, info)=> {
+
+			 total_trim1= info.trimestre_1;
+			 total_trim2= info.trimestre_2;
+			 total_trim3= info.trimestre_3;
+			 total_trim4= info.trimestre_4;
+			
+
+		});
+
+
+
+		$.each(by_trimestre, (i, info)=> {
+			let trimestre_1= (info.trimestre_1*100) / (total_trim1);
+			let trimestre_2= (info.trimestre_2*100) / (total_trim2);
+			let trimestre_3= (info.trimestre_3*100) / (total_trim3);
+			let trimestre_4= (info.trimestre_4*100) / (total_trim4);
+
+			data_x.push(info.lot);
+
+
+			data_y.push(trimestre_1.toFixed(2));
+			data_y.push(trimestre_2.toFixed(2));
+			data_y.push(trimestre_3.toFixed(2));
+			data_y.push(trimestre_4.toFixed(2));
+
+		});
+
+		//console.log(data_x); console.log(data_y);
+
+		Chart.defaults.global.title.display= true;
+		Chart.defaults.global.title.text= "Repartition du lot Enregistrer En (%)" ;
+
+var ctx= document.getElementById('myChart').getContext('2d');
+var chart= new Chart(ctx, {
+	// The type of chart we want to create
+	type: 'bar',
+
+	//the data our dataset
+	data: {
+		labels: ['MUTATION', 'VEHICULE NEUFS', 'USAGE IMPORTE'],
+        datasets: [{
+             label: 'trimestre 1',
+			 backgroundColor: "#32CD32",
+             data: [data_y[0], data_y[4], data_y[8]]
+         }, {
+             label: 'trimestre 2',
+             backgroundColor: "#4682B4",
+             data: [data_y[1], data_y[5], data_y[9]]
+         },
+		 {
+			label: 'trimestre 3',
+			backgroundColor:  "#FF6347",
+			data: [data_y[2], data_y[6], data_y[10]]
+		},
+		{
+			label: 'trimestre 4',
+			backgroundColor: "#FFD700",
+			data: [data_y[3], data_y[7], data_y[11]]
+		}]
+
+		},
+		// configuration options go here
+		options: {}
+});
+
+$('#save').click(function(){
+	$('#myChart').get(0).toBlob(function(blob){
+		saveAs(blob, 'graph.png');
+	});
+});
+
+
+	}
+
+
+	//////////////////////////////////////////////////////////////chart 2 ////////////////////////////////////////////////////////////////////
+
+	function chartdisplay2(result){
+
+		let energie_4= result.res3;
+		let total_energie4= result.res4;
+
+		//console.log(total_energie4);
+
+
+
+		let data_x=[], data_y=[]
+
+
+		$.each(energie_4, (i, info)=>{
+
+			data_x.push((info.energie));
+			data_y.push(((info.mutation *100) / (total_energie4[0].mutation)).toFixed(2));
+			data_y.push(((info.neufs * 100) / (total_energie4[0].neufs) ).toFixed(2));
+			data_y.push(((info.occasion * 100) / ((total_energie4[0].occasion))).toFixed(2));
+			data_y.push(((info.total* 100) / (total_energie4[0].TOTAL)).toFixed(2));
+		});
+
+		//console.log(data_y);
+
+
+	//	console.log(data_x); console.log(data_y);
+
+		Chart.defaults.global.title.display= true;
+		Chart.defaults.global.title.text= " Repartition d'Energie (En %) Enregistrer durant 4 em trimestre" ;
+
+var ctx= document.getElementById('myChart2').getContext('2d');
+var chart= new Chart(ctx, {
+	// The type of chart we want to create
+	type: 'bar',
+
+	//the data our dataset
+	data: {
+		labels: ['MUTATION', 'VEHICULE NEUFS', 'USAGE IMPORTE', 'ENSEMBLE'],
+        datasets: [{
+             label: "AUCUN",
+             backgroundColor:  "green",
+             data: [data_y[0], data_y[1], data_y[2], data_y[3]]
+         }, {
+             label: 'ELECTRIQUE',
+             backgroundColor: "yellow",
+             data: [data_y[4], data_y[5], data_y[6], data_y[7]]
+         },
+		 {
+			label: 'ESSENCE',
+			backgroundColor: "brown",
+			data: [data_y[8], data_y[9], data_y[10], data_y[11]]
+		},
+		{
+			label: 'GASOIL',
+			backgroundColor: "red",
+			data: [data_y[12], data_y[13], data_y[14], data_y[15]]
+		}]
+
+
+		},
+		// configuration options go here
+		options: {
+		}
+});
+
+$('#save2').click(function(){
+	$('#myChart2').get(0).toBlob(function(blob){
+		saveAs(blob, 'graph.png');
+	});
+});
+
+
+	}
+
+
+
+function chartdisplay3(result){
+		let data_y=[];
+
+		let occasion= result.res5;
+
+		$.each(occasion, (i, info)=>{
+
+
+			data_y.push(occasion[0].moins_5);
+			data_y.push(occasion[0].cinque_10);
+			data_y.push(occasion[0].dix_quinze);
+			data_y.push(occasion[0].quinze_20);
+			data_y.push(occasion[0].plus_20);
+
+		});
+
+		console.log(data_y)
+
+
+	new Chart(document.getElementById("myChart4"),{
+		type: 'pie',
+		
+		data :{
+			labels:["moins 5 ans","entre 5 à 10 ans", "entre 10 à 15 ans", "entre 15 à 20 ans", "plus de 20 ans"],
+			datasets :[{
+				label: "Population (millions)",
+				backgroundColor: ["#667292"," #f18973", "gold", "aqua", "brown"],
+				data: data_y
+			}]
+		},
+	
+		options:{
+			title:{
+				display:true,
+				text: "Repartition d'age Véhicules Usagés Importés durant 4 em Trimestre"
+			}
+		}
+	});
+	$('#save4').click(function(){
+		$('#myChart4').get(0).toBlob(function(blob){
+			saveAs(blob, 'graph.png');
+		});
+	});
+
+}
+
+
+function chartdisplay4(result){
+	let data_y=[];
+
+	let mutation= result.res6;
+
+	$.each(mutation, (i, info)=>{
+
+
+		data_y.push(mutation[0].moins_5);
+		data_y.push(mutation[0].cinque_10);
+		data_y.push(mutation[0].dix_quinze);
+		data_y.push(mutation[0].quinze_20);
+		data_y.push(mutation[0].plus_20);
+
+	});
+
+	console.log(data_y)
+
+
+new Chart(document.getElementById("myChart3"),{
+	type: 'polarArea',
+	
+	data :{
+		labels:["moins 5 ans","entre 5 à 10 ans", "entre 10 à 15 ans", "entre 15 à 20 ans", "plus de 20 ans"],
+		datasets :[{
+			label: "Population (millions)",
+			backgroundColor: ["#667292"," #f18973", "gold", "aqua", "brown"],
+			data: data_y
+		}]
+	},
+
+	options:{
+		title:{
+			display:true,
+			text: "Repartition Mutation de Province durant 4 em Trimestre"
+		}
+	}
+});
+$('#save4').click(function(){
+	$('#myChart3').get(0).toBlob(function(blob){
+		saveAs(blob, 'graph.png');
+	});
+});
+
+}
+
+
+
+
+
+</script>
+
+

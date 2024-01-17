@@ -1,0 +1,792 @@
+<%- include('../partials/header'); -%>
+
+<div class="container"">
+ <div class="btn-group btn-group-justified">
+    
+        <a href="#" class="btn btn-success" onclick="affiche_lieu()"> Formation Sanitaire </a>
+    
+
+        <a href="#" class="btn btn-success" onclick="affiche_district()" >District </a>
+    
+
+        <a href="#" class="btn btn-success" onclick="affiche_quartier()">Quartier Residence </a>
+    
+
+        <a href="#" class="btn btn-success" onclick="affiche_sexe()">Sexe </a>
+
+        <a href="#" class="btn btn-success" onclick="affiche_mois()">Par Mois </a>
+
+        <a href="#" class="btn btn-success" onclick="affiche_age()">Groupe D'Age </a>
+ </div>
+</div>
+
+
+
+
+
+<!-- ////////////////////////////////////// Tableau 1 ////////////////////////////////////////// -->
+
+<div class="container" id="tableau_1" style="margin-top: 50px;">
+    
+    <table class="table table-striped table-advance table-hover table-bordered">
+        <!-- <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>REPARTITION DES DECES ENREGISTRER DANS LE DISTRICT TOAMASINA DURANT L'ANNEE ....</h4></caption> -->
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: center; padding-bottom: 25px">Lieu du Deces</th>
+                <th colspan="5" style="text-align: center;">SITUATION DURANT l'ANNEE</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">Trimestre 1</th>
+                <th style="text-align: center;">Trimestre 2</th>
+                <th style="text-align: center;">Trimestre 3</th>
+                <th style="text-align: center;">Trimestre 4</th>
+                <th style="text-align: center;">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody id="tbody1">
+
+        </tbody>
+        <tfoot id="tfoot1" style="background-color: #ffcf6b;">
+        </tfoot>
+    </table>
+</div>
+
+<!-- //////////////////////////////////////// Tableau 2 ////////////////////////////////////// -->
+
+<div class="container" id="tableau_2" style="margin-top: 50px;">
+    
+    <table class="table table-striped table-advance table-hover table-bordered">
+        <!-- <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>REPARTITION DES DECES ENREGISTRER DANS LE DISTRICT TOAMASINA DURANT L'ANNEE ....</h4></caption> -->
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: center; padding-bottom: 25px">District</th>
+                <th colspan="5" style="text-align: center;">SITUATION DURANT l'ANNEE</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">Trimestre 1</th>
+                <th style="text-align: center;">Trimestre 2</th>
+                <th style="text-align: center;">Trimestre 3</th>
+                <th style="text-align: center;">Trimestre 4</th>
+                <th style="text-align: center;">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody id="tbody2">
+
+        </tbody>
+        <tfoot id="tfoot2" style="background-color: #ffcf6b;">
+
+        </tfoot>
+    </table>
+</div>
+
+
+
+<!-- ///////////////////////////////// Tableau 3 ///////////////////////////////////////////////// -->
+
+<div class="container" id="tableau_3" style="margin-top: 50px;">
+    
+    <table class="table table-striped table-advance table-hover table-bordered">
+        <!-- <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>REPARTITION DES DECES ENREGISTRER DANS LE DISTRICT TOAMASINA DURANT L'ANNEE ....</h4></caption> -->
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: center; padding-bottom: 25px">Quartier Residence</th>
+                <th colspan="5" style="text-align: center;">SITUATION DURANT l'ANNEE</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">Trimestre 1</th>
+                <th style="text-align: center;">Trimestre 2</th>
+                <th style="text-align: center;">Trimestre 3</th>
+                <th style="text-align: center;">Trimestre 4</th>
+                <th style="text-align: center;">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody id="tbody3">
+        </tbody>
+        <tfoot id="tfoot3" style="background-color: #ffcf6b;">
+        </tfoot>
+    </table>
+</div>
+
+<!-- //////////////////////////////////////// Tableau 4 //////////////////////////////////////////// -->
+
+<div class="container" id="tableau_4" style="margin-top: 50px;">
+    
+    <table class="table table-striped table-advance table-hover table-bordered">
+        <!-- <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>REPARTITION DES DECES ENREGISTRER DANS LE DISTRICT TOAMASINA DURANT L'ANNEE ....</h4></caption> -->
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: center; padding-bottom: 25px">Sexe</th>
+                <th colspan="5" style="text-align: center;">SITUATION DURANT l'ANNEE</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">Trimestre 1</th>
+                <th style="text-align: center;">Trimestre 2</th>
+                <th style="text-align: center;">Trimestre 3</th>
+                <th style="text-align: center;">Trimestre 4</th>
+                <th style="text-align: center;">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody id="tbody4">
+
+        </tbody>
+        <tfoot id="tfoot4" style="background-color: #ffcf6b;">
+
+        </tfoot>
+    </table>
+</div>
+
+
+<!-- /////////////////////////////////////// Tableau 5 //////////////////////////////////////// -->
+
+<div class="container" id="tableau_5" style="margin-top: 50px;">
+    
+    <table class="table table-striped table-advance table-hover table-bordered">
+        <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>REPARTITION DES DECES ENREGISTRER DANS LE DISTRICT TOAMASINA SUIVANT LEUR SEXE ET AUTRES </h4></caption>
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: center; padding-bottom: 25px">MOIS</th>
+                <th colspan="3" style="text-align: center;">Dans Formation Sanitaire</th>
+                <th colspan="3" style="text-align: center;">Hors Formation Sanitaire</th>
+                <th colspan="3" style="text-align: center;">TOTAL Lieu Confondu</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">Masculin</th>
+                <th style="text-align: center;">Femminin</th>
+                <th style="text-align: center;">Total</th>
+                <th style="text-align: center;">Masculin</th>
+                <th style="text-align: center;">Femminin</th>
+                <th style="text-align: center;">Total</th>
+                <th style="text-align: center;">Masculin</th>
+                <th style="text-align: center;">Femminin</th>
+                <th style="text-align: center;">Total</th>
+            </tr>
+        </thead>
+        <tbody id="tbody5">
+
+        </tbody>
+        <tfoot id="tfoot5" style="background-color: #ffcf6b;">
+
+        </tfoot>
+    </table>
+</div>
+
+<!-- /////////////////////////////////////// Tableau 6 //////////////////////////////////////// -->
+
+
+<div class="container" id="tableau_6" style="margin-top: 50px;">
+    <table class="table table-striped table-advance table-hover table-bordered">
+        <caption style="text-align: center; background-color:#5490c4; color: white;"><h4>REPARTITION DES DECES PAR GROUPE D'AGE DANS LE DISTRICT TOAMASINA SUIVANT LEUR SEXE ET AUTRES </h4></caption>
+        <thead>
+            <tr>
+                <th rowspan="2" style="text-align: center; padding-bottom: 25px">Groupe d'Age</th>
+                <th colspan="3" style="text-align: center;">Dans Formation Sanitaire</th>
+                <th colspan="3" style="text-align: center;">Hors Formation Sanitaire</th>
+                <th colspan="3" style="text-align: center;">TOTAL Lieu Confondu</th>
+            </tr>
+            <tr>
+                <th style="text-align: center;">Feminin</th>
+                <th style="text-align: center;">Masculin</th>
+                <th style="text-align: center;">Total</th>
+                <th style="text-align: center;">Feminin</th>
+                <th style="text-align: center;">Masculin</th>
+                <th style="text-align: center;">Total</th>
+                <th style="text-align: center;">Feminin</th>
+                <th style="text-align: center;">Masculin</th>
+                <th style="text-align: center;">Total</th>
+            </tr>
+        </thead>
+        <tbody id="tbody6">
+
+        </tbody>
+        <tfoot id="tfoot6" style="background-color: #ffcf6b;">
+
+        </tfoot>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    window.onload= $("document").ready(function(){
+        $.ajax({
+            url: '/app/resultat_deces',
+            method: "POST",
+            dataType: "json",
+            success: (result)=>{
+
+
+//////////////////////////////////////////////// Tbody 1 /////////////////////////////////////////
+
+                let fs= result.res1, district= result.res2, quartier= result.res3, sexe= result.res4, by_mois= result.res5, class_age= result.res6, TOTAL_tri= result.res7, TOTAL= result.res8 ;
+                let mois_lib=['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
+                let group_age=['moins 1 ans', '1-4ans', '5-9ans', '10-14ans', '15-19ans', '20-24ans', '25-29ans', '30-34ans', '35-39ans', '40-44ans', '45-49ans', '50-54ans', '55-59ans', '60-64ans', '65-69ans', '70ans et plus'];
+                $.each(fs, (i, info)=>{
+                    $('#tbody1').append(
+                    `<tr>
+                        <td style="text-align: center;">${info.formation_sanitaire}</td>
+                        <td style="text-align: center;">${info.trimestre1}</td>
+                        <td style="text-align: center;">${info.trimestre2} </td>
+                        <td style="text-align: center;">${info.trimestre3} </td>
+                        <td style="text-align: center;">${info.trimestre4} </td>
+                        <td style="text-align: center;">${info.TOTAL} </td>
+                    </tr>`);
+                });
+                
+
+                $.each(district, (i, info)=>{
+                    $('#tbody2').append(
+                    `<tr>
+                        <td style="text-align: center;">${info.district}</td>
+                        <td style="text-align: center;">${info.trimestre1}</td>
+                        <td style="text-align: center;">${info.trimestre2} </td>
+                        <td style="text-align: center;">${info.trimestre3} </td>
+                        <td style="text-align: center;">${info.trimestre4} </td>
+                        <td style="text-align: center;">${info.total} </td>
+                    </tr>`);
+                });
+
+
+                $.each(quartier, (i, info)=>{
+                    $('#tbody3').append(
+                    `<tr>
+                        <td style="text-align: center;">${info.libelle_adresse}</td>
+                        <td style="text-align: center;">${info.trimestre1}</td>
+                        <td style="text-align: center;">${info.trimestre2} </td>
+                        <td style="text-align: center;">${info.trimestre3} </td>
+                        <td style="text-align: center;">${info.trimestre4} </td>
+                        <td style="text-align: center;">${info.total} </td>
+                    </tr>`);
+                });
+
+
+                $.each(sexe, (i, info)=>{
+                    $('#tbody4').append(
+                    `<tr>
+                        <td style="text-align: center;">${info.sexe}</td>
+                        <td style="text-align: center;">${info.trimestre1}</td>
+                        <td style="text-align: center;">${info.trimestre2} </td>
+                        <td style="text-align: center;">${info.trimestre3} </td>
+                        <td style="text-align: center;">${info.trimestre4} </td>
+                        <td style="text-align: center;">${info.total} </td>
+                    </tr>`);
+                });
+
+                $.each(by_mois, (i, info)=>{
+                    $('#tbody5').append(
+                    `<tr>
+                        <td style="text-align: center;">${mois_lib[i]}</td>
+                        <td style="text-align: center;">${info.masculin1}</td>
+                        <td style="text-align: center;">${info.feminin1} </td>
+                        <td style="text-align: center;">${info.hopital}</td>
+                        <td style="text-align: center;">${info.masculin2} </td>
+                        <td style="text-align: center;">${info.feminin2} </td>
+                        <td style="text-align: center;">${info.hors}</td>
+                        <td style="text-align: center;">${info.masculin} </td>
+                        <td style="text-align: center;">${info.feminin} </td>
+                        <td style="text-align: center;">${info.total} </td>
+                    </tr>`);
+                });
+
+
+                $.each(class_age, (i, info)=>{
+                    $('#tbody6').append(
+                    `<tr>
+                        <td style="text-align: center;">${group_age[i]}</td>
+                        <td style="text-align: center;">${info.feminin1} </td>
+                        <td style="text-align: center;">${info.masculin1}</td>
+                        <td style="text-align: center;">${info.hopital}</td>
+                        <td style="text-align: center;">${info.feminin2} </td>
+                        <td style="text-align: center;">${info.masculin2} </td>
+                        <td style="text-align: center;">${info.hors}</td>
+                        <td style="text-align: center;">${info.feminin} </td>
+                        <td style="text-align: center;">${info.masculin} </td>
+                        <td style="text-align: center;">${info.TOTAL} </td>
+                    </tr>`);
+                });
+
+
+                $.each(TOTAL_tri, (i, info)=>{
+                    $('#tfoot1').append(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${info.trimestre1}</th>
+                        <th style="text-align: center;">${info.trimestre2} </th>
+                        <th style="text-align: center;">${info.trimestre3} </th>
+                        <th style="text-align: center;">${info.trimestre4} </th>
+                        <th style="text-align: center;">${info.total} </th>
+                    </tr>`);
+                });
+
+                $.each(TOTAL_tri, (i, info)=>{
+                    $('#tfoot2').append(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${info.trimestre1}</th>
+                        <th style="text-align: center;">${info.trimestre2} </th>
+                        <th style="text-align: center;">${info.trimestre3} </th>
+                        <th style="text-align: center;">${info.trimestre4} </th>
+                        <th style="text-align: center;">${info.total} </th>
+                    </tr>`);
+                });
+
+                $.each(TOTAL_tri, (i, info)=>{
+                    $('#tfoot3').append(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${info.trimestre1}</th>
+                        <th style="text-align: center;">${info.trimestre2} </th>
+                        <th style="text-align: center;">${info.trimestre3} </th>
+                        <th style="text-align: center;">${info.trimestre4} </th>
+                        <th style="text-align: center;">${info.total} </th>
+                    </tr>`);
+                });
+                    
+                $.each(TOTAL_tri, (i, info)=>{
+                    $('#tfoot4').append(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${info.trimestre1}</th>
+                        <th style="text-align: center;">${info.trimestre2} </th>
+                        <th style="text-align: center;">${info.trimestre3} </th>
+                        <th style="text-align: center;">${info.trimestre4} </th>
+                        <th style="text-align: center;">${info.total} </th>
+                    </tr>`);
+                });
+                
+
+                $.each(TOTAL, (i, info)=>{
+                    $('#tfoot5').append(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${info.feminin1}</th>
+                        <th style="text-align: center;">${info.masculin1} </th>
+                        <th style="text-align: center;">${info.hopital} </th>
+                        <th style="text-align: center;">${info.feminin2}</th>
+                        <th style="text-align: center;">${info.masculin2} </th>
+                        <th style="text-align: center;">${info.hors} </th>
+                        <th style="text-align: center;">${info.feminin}</th>
+                        <th style="text-align: center;">${info.masculin} </th>
+                        <th style="text-align: center;">${info.TOTAL} </th>
+                    </tr>`);
+                });
+
+
+                $.each(TOTAL, (i, info)=>{
+                    $('#tfoot6').append(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${info.feminin1}</th>
+                        <th style="text-align: center;">${info.masculin1} </th>
+                        <th style="text-align: center;">${info.hopital} </th>
+                        <th style="text-align: center;">${info.feminin2}</th>
+                        <th style="text-align: center;">${info.masculin2} </th>
+                        <th style="text-align: center;">${info.hors} </th>
+                        <th style="text-align: center;">${info.feminin}</th>
+                        <th style="text-align: center;">${info.masculin} </th>
+                        <th style="text-align: center;">${info.TOTAL} </th>
+                    </tr>`);
+                });
+                /*$('#tfoot1').html(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${result.res85[0].total}</th>
+                        <th style="text-align: center;">${result.res86[0].total} </th>
+                        <th style="text-align: center;">${result.res87[0].total} </th>
+                        <th style="text-align: center;">${result.res88[0].total} </th>
+                        <th style="text-align: center;">${result.res89[0].total} </th>
+                    </tr>`);
+
+
+////////////////////////////////////////////// Tbody 2 /////////////////////////////////////////
+
+                $('#tbody2').html(
+                    `<tr>
+                        <td style="text-align: center;">${result.res6[0].district}</td>
+                        <td style="text-align: center;">${result.res6[0].nbre_1}</td>
+                        <td style="text-align: center;">${result.res7[0].nbre_2} </td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">${result.res9[0].nbre_4} </td>
+                        <td style="text-align: center;">${result.res10[0].total} </td>
+                    </tr>`);
+
+                    $('#tfoot2').html(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${result.res85[0].total}</th>
+                        <th style="text-align: center;">${result.res86[0].total} </th>
+                        <th style="text-align: center;">${result.res87[0].total} </th>
+                        <th style="text-align: center;">${result.res88[0].total} </th>
+                        <th style="text-align: center;">${result.res89[0].total} </th>
+                    </tr>`);
+
+/////////////////////////////////////////// Tbody 3 ////////////////////////////////////////////////
+
+                $('#tbody3').html(
+                        `<tr>
+                            <td style="text-align: center;">${result.res11[0].libelle_adresse}</td>
+                            <td style="text-align: center;">${result.res11[0].trimestre_1}</td>
+                            <td style="text-align: center;">${result.res12[0].trimestre_2} </td>
+                            <td style="text-align: center;">${result.res13[0].trimestre_3}</td>
+                            <td style="text-align: center;">${result.res14[0].trimestre_4} </td>
+                            <td style="text-align: center;">${result.res15[0].total} </td>
+                        </tr>`);
+
+                        $('#tfoot3').html(
+                            `<tr>
+                                <th style="text-align: center;">TOTAL</th>
+                                <th style="text-align: center;">${result.res85[0].total}</th>
+                                <th style="text-align: center;">${result.res86[0].total} </th>
+                                <th style="text-align: center;">${result.res87[0].total} </th>
+                                <th style="text-align: center;">${result.res88[0].total} </th>
+                                <th style="text-align: center;">${result.res89[0].total} </th>
+                            </tr>
+                            `
+                        )
+
+///////////////////////////////////////////////// Tbody 4 //////////////////////////////////////
+                $('#tbody4').html(
+                            `<tr>
+                                <td style="text-align: center;">${result.res16[1].sexe}</td>
+                                <td style="text-align: center;">${result.res16[1].trimestre_1}</td>
+                                <td style="text-align: center;">${result.res17[1].trimestre_2} </td>
+                                <td style="text-align: center;">${result.res18[1].trimestre_3}</td>
+                                <td style="text-align: center;">${result.res19[1].trimestre_4} </td>
+                                <td style="text-align: center;">${result.res20[1].total} </td>
+        
+                            </tr>`);
+                $('#tfoot4').html(`
+                            <tr>
+                                <th style="text-align: center;">TOTAL</th>
+                                <th style="text-align: center;">${result.res85[0].total}</th>
+                                <th style="text-align: center;">${result.res86[0].total} </th>
+                                <th style="text-align: center;">${result.res87[0].total} </th>
+                                <th style="text-align: center;">${result.res88[0].total} </th>
+                                <th style="text-align: center;">${result.res89[0].total} </th>
+                            </tr>`);
+                            
+
+//////////////////////////////////////////////// Tbody 5 ////////////////////////////////////////
+                            
+                $('#tbody5').html(
+                    `<tr>
+                        <td style="text-align: center;">Decembre</td>
+                        <td style="text-align: center;">${result.res21[46].nbre_deces}</td>
+                        <td style="text-align: center;">${result.res21[44].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[11].total}</td>
+                        <td style="text-align: center;">${result.res21[47].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res21[45].nbre_deces} </td>
+                        <td style="text-align: center;">${result.res24[23].total}</td>
+                        <td style="text-align: center;">${result.res22[23].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res22[22].nbre_lieu_confondu}</td>
+                        <td style="text-align: center;">${result.res23[11].total}</td>
+                    </tr>`);
+
+                $('#tfoot5').html(
+                    `<tr>
+                        <th style="text-align: center;">TOTAL</th>
+                        <th style="text-align: center;">${result.res90[0].total_sexe}</th>
+                        <th style="text-align: center;">${result.res90[1].total_sexe} </th>
+                        <th style="text-align: center;">${result.res91[0].fs}</th>
+                        <th style="text-align: center;">${result.res90[2].total_sexe} </th>
+                        <th style="text-align: center;">${result.res90[3].total_sexe} </th>
+                        <th style="text-align: center;">${result.res91[1].fs}</th>
+                        <th style="text-align: center;">${result.res20[1].total}</th>
+                        <th style="text-align: center;">${result.res20[0].total}</th>
+                        <th style="text-align: center;">${result.res89[0].total}</th>
+                     </tr>`
+                )
+//////////////////////////////// Tbody 6 /////////////////////////////////////////////////////////
+
+                $('#tbody6').html(
+                    `<tr>
+                        <td style="text-align: center;">Moins 1 ans</td>
+                        <td style="text-align: center;">${result.res92[0].nbre}</td>
+                        <td style="text-align: center;">${result.res92[1].nbre} </td>
+                        <td style="text-align: center;">${result.res93[0].nbre}</td>
+                        <td style="text-align: center;">${result.res92[2].nbre} </td>
+                        <td style="text-align: center;">${result.res92[3].nbre} </td>
+                        <td style="text-align: center;">${result.res93[1].nbre}</td>
+                        <td style="text-align: center;">${result.res95[0].nbre}</td>
+                        <td style="text-align: center;">${result.res95[1].nbre}</td>
+                        <td style="text-align: center;">${result.res94[0].nbre}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">1 à 4 ans</td>
+                        <td style="text-align: center;">${result.res25[0].nbre}</td>
+                        <td style="text-align: center;">${result.res25[1].nbre} </td>
+                        <td style="text-align: center;">${result.res40[0].total}</td>
+                        <td style="text-align: center;">${result.res25[2].nbre} </td>
+                        <td style="text-align: center;">${result.res25[3].nbre} </td>
+                        <td style="text-align: center;">${result.res40[1].total}</td>
+                        <td style="text-align: center;">${result.res70[0].sexe}</td>
+                        <td style="text-align: center;">${result.res70[1].sexe}</td>
+                        <td style="text-align: center;">${result.res55[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">5 à 9 ans</td>
+                        <td style="text-align: center;">${result.res26[0].nbre}</td>
+                        <td style="text-align: center;">${result.res26[1].nbre} </td>
+                        <td style="text-align: center;">${result.res41[0].total}</td>
+                        <td style="text-align: center;">${result.res26[2].nbre} </td>
+                        <td style="text-align: center;">${result.res26[3].nbre} </td>
+                        <td style="text-align: center;">${result.res41[1].total}</td>
+                        <td style="text-align: center;">${result.res71[0].sexe}</td>
+                        <td style="text-align: center;">${result.res71[1].sexe}</td>
+                        <td style="text-align: center;">${result.res56[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">10 à 14 ans</td>
+                        <td style="text-align: center;">${result.res27[0].nbre}</td>
+                        <td style="text-align: center;">${result.res27[1].nbre} </td>
+                        <td style="text-align: center;">${result.res42[0].total}</td>
+                        <td style="text-align: center;">${result.res27[2].nbre} </td>
+                        <td style="text-align: center;">${result.res27[3].nbre} </td>
+                        <td style="text-align: center;">${result.res42[1].total}</td>
+                        <td style="text-align: center;">${result.res72[0].sexe}</td>
+                        <td style="text-align: center;">${result.res72[1].sexe}</td>
+                        <td style="text-align: center;">${result.res57[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">15 à 19 ans</td>
+                        <td style="text-align: center;">${result.res28[0].nbre}</td>
+                        <td style="text-align: center;">${result.res28[1].nbre} </td>
+                        <td style="text-align: center;">${result.res43[0].total}</td>
+                        <td style="text-align: center;">${result.res28[2].nbre} </td>
+                        <td style="text-align: center;">${result.res28[3].nbre} </td>
+                        <td style="text-align: center;">${result.res43[1].total}</td>
+                        <td style="text-align: center;">${result.res73[0].sexe}</td>
+                        <td style="text-align: center;">${result.res73[1].sexe}</td>
+                        <td style="text-align: center;">${result.res58[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">20 à 24 ans</td>
+                        <td style="text-align: center;">${result.res29[0].nbre}</td>
+                        <td style="text-align: center;">${result.res29[1].nbre} </td>
+                        <td style="text-align: center;">${result.res44[0].total}</td>
+                        <td style="text-align: center;">${result.res29[2].nbre} </td>
+                        <td style="text-align: center;">${result.res29[3].nbre} </td>
+                        <td style="text-align: center;">${result.res44[1].total}</td>
+                        <td style="text-align: center;">${result.res74[0].sexe}</td>
+                        <td style="text-align: center;">${result.res74[1].sexe}</td>
+                        <td style="text-align: center;">${result.res59[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">25 à 29 ans</td>
+                        <td style="text-align: center;">${result.res30[0].nbre}</td>
+                        <td style="text-align: center;">${result.res30[1].nbre} </td>
+                        <td style="text-align: center;">${result.res45[0].total}</td>
+                        <td style="text-align: center;">${result.res30[2].nbre} </td>
+                        <td style="text-align: center;">${result.res30[3].nbre} </td>
+                        <td style="text-align: center;">${result.res45[1].total}</td>
+                        <td style="text-align: center;">${result.res75[0].sexe}</td>
+                        <td style="text-align: center;">${result.res75[1].sexe}</td>
+                        <td style="text-align: center;">${result.res60[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">30 à 34 ans</td>
+                        <td style="text-align: center;">${result.res31[0].nbre}</td>
+                        <td style="text-align: center;">${result.res31[1].nbre} </td>
+                        <td style="text-align: center;">${result.res46[0].total}</td>
+                        <td style="text-align: center;">${result.res31[2].nbre} </td>
+                        <td style="text-align: center;">${result.res31[3].nbre} </td>
+                        <td style="text-align: center;">${result.res46[1].total}</td>
+                        <td style="text-align: center;">${result.res76[0].sexe}</td>
+                        <td style="text-align: center;">${result.res76[1].sexe}</td>
+                        <td style="text-align: center;">${result.res61[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">35 à 39 ans</td>
+                        <td style="text-align: center;">${result.res32[0].nbre}</td>
+                        <td style="text-align: center;">${result.res32[1].nbre} </td>
+                        <td style="text-align: center;">${result.res47[0].total}</td>
+                        <td style="text-align: center;">${result.res32[2].nbre} </td>
+                        <td style="text-align: center;">${result.res32[3].nbre} </td>
+                        <td style="text-align: center;">${result.res47[1].total}</td>
+                        <td style="text-align: center;">${result.res77[0].sexe}</td>
+                        <td style="text-align: center;">${result.res77[1].sexe}</td>
+                        <td style="text-align: center;">${result.res62[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">40 à 44 ans</td>
+                        <td style="text-align: center;">${result.res33[0].nbre}</td>
+                        <td style="text-align: center;">${result.res33[1].nbre} </td>
+                        <td style="text-align: center;">${result.res48[0].total}</td>
+                        <td style="text-align: center;">${result.res33[2].nbre} </td>
+                        <td style="text-align: center;">${result.res33[3].nbre} </td>
+                        <td style="text-align: center;">${result.res48[1].total}</td>
+                        <td style="text-align: center;">${result.res78[0].sexe}</td>
+                        <td style="text-align: center;">${result.res78[1].sexe}</td>
+                        <td style="text-align: center;">${result.res63[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">45 à 49 ans</td>
+                        <td style="text-align: center;">${result.res34[0].nbre}</td>
+                        <td style="text-align: center;">${result.res34[1].nbre} </td>
+                        <td style="text-align: center;">${result.res49[0].total}</td>
+                        <td style="text-align: center;">${result.res34[2].nbre} </td>
+                        <td style="text-align: center;">${result.res34[3].nbre} </td>
+                        <td style="text-align: center;">${result.res49[1].total}</td>
+                        <td style="text-align: center;">${result.res79[0].sexe}</td>
+                        <td style="text-align: center;">${result.res79[1].sexe}</td>
+                        <td style="text-align: center;">${result.res64[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">50 à 54 ans</td>
+                        <td style="text-align: center;">${result.res35[0].nbre}</td>
+                        <td style="text-align: center;">${result.res35[1].nbre} </td>
+                        <td style="text-align: center;">${result.res50[0].total}</td>
+                        <td style="text-align: center;">${result.res35[2].nbre} </td>
+                        <td style="text-align: center;">${result.res35[3].nbre} </td>
+                        <td style="text-align: center;">${result.res50[1].total}</td>
+                        <td style="text-align: center;">${result.res80[0].sexe}</td>
+                        <td style="text-align: center;">${result.res80[1].sexe}</td>
+                        <td style="text-align: center;">${result.res65[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">55 à 59 ans</td>
+                        <td style="text-align: center;">${result.res36[0].nbre}</td>
+                        <td style="text-align: center;">${result.res36[1].nbre} </td>
+                        <td style="text-align: center;">${result.res51[0].total}</td>
+                        <td style="text-align: center;">${result.res36[2].nbre} </td>
+                        <td style="text-align: center;">${result.res36[3].nbre} </td>
+                        <td style="text-align: center;">${result.res51[1].total}</td>
+                        <td style="text-align: center;">${result.res81[0].sexe}</td>
+                        <td style="text-align: center;">${result.res81[1].sexe}</td>
+                        <td style="text-align: center;">${result.res66[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">60 à 64 ans</td>
+                        <td style="text-align: center;">${result.res37[0].nbre}</td>
+                        <td style="text-align: center;">${result.res37[1].nbre} </td>
+                        <td style="text-align: center;">${result.res52[0].total}</td>
+                        <td style="text-align: center;">${result.res37[2].nbre} </td>
+                        <td style="text-align: center;">${result.res37[3].nbre} </td>
+                        <td style="text-align: center;">${result.res52[1].total}</td>
+                        <td style="text-align: center;">${result.res82[0].sexe}</td>
+                        <td style="text-align: center;">${result.res82[1].sexe}</td>
+                        <td style="text-align: center;">${result.res67[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">65 à 69 ans</td>
+                        <td style="text-align: center;">${result.res38[0].nbre}</td>
+                        <td style="text-align: center;">${result.res38[1].nbre} </td>
+                        <td style="text-align: center;">${result.res53[0].total}</td>
+                        <td style="text-align: center;">${result.res38[2].nbre} </td>
+                        <td style="text-align: center;">${result.res38[3].nbre} </td>
+                        <td style="text-align: center;">${result.res53[1].total}</td>
+                        <td style="text-align: center;">${result.res83[0].sexe}</td>
+                        <td style="text-align: center;">${result.res83[1].sexe}</td>
+                        <td style="text-align: center;">${result.res68[0].total}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">70 ans et plus</td>
+                        <td style="text-align: center;">${result.res39[0].nbre}</td>
+                        <td style="text-align: center;">${result.res39[1].nbre} </td>
+                        <td style="text-align: center;">${result.res54[0].total}</td>
+                        <td style="text-align: center;">${result.res39[2].nbre} </td>
+                        <td style="text-align: center;">${result.res39[3].nbre} </td>
+                        <td style="text-align: center;">${result.res54[1].total}</td>
+                        <td style="text-align: center;">${result.res84[0].sexe}</td>
+                        <td style="text-align: center;">${result.res84[1].sexe}</td>
+                        <td style="text-align: center;">${result.res69[0].total}</td>
+                    </tr>`);
+                    $('#tfoot6').html(
+                        `<tr>
+                            <tr>
+                                <th style="text-align: center;">TOTAL</th>
+                                <th style="text-align: center;">${result.res90[1].total_sexe} </th>
+                                <th style="text-align: center;">${result.res90[0].total_sexe}</th>
+                                <th style="text-align: center;">${result.res91[0].fs}</th>
+
+                                <th style="text-align: center;">${result.res90[2].total_sexe} </th>
+                                <th style="text-align: center;">${result.res90[3].total_sexe} </th>
+                                <th style="text-align: center;">${result.res91[1].fs}</th>
+                                <th style="text-align: center;">${result.res20[0].total}</th>
+                                <th style="text-align: center;">${result.res20[1].total}</th>
+                                <th style="text-align: center;">${result.res89[0].total}</th>
+                             </tr>
+                         </tr>`
+                    )*/
+                    
+                    $('#tableau_2').hide();
+                    $('#tableau_3').hide();
+                    $('#tableau_4').hide();
+                    $('#tableau_5').hide();
+                    $('#tableau_6').hide();
+                    
+            },
+            error: ()=>{
+                console.log('Error');
+            }
+        });
+    });
+
+    function affiche_lieu(){
+        $('#tableau_1').show();
+        $('#tableau_2').hide();
+        $('#tableau_3').hide();
+        $('#tableau_4').hide();
+        $('#tableau_5').hide();
+        $('#tableau_6').hide();
+    }
+
+    function affiche_district(){
+        $('#tableau_1').hide();
+        $('#tableau_2').show();
+        $('#tableau_3').hide();
+        $('#tableau_4').hide();
+        $('#tableau_5').hide();
+        $('#tableau_6').hide();
+    }
+
+    function affiche_quartier(){
+        $('#tableau_1').hide();
+        $('#tableau_2').hide();
+        $('#tableau_3').show();
+        $('#tableau_4').hide();
+        $('#tableau_5').hide();
+        $('#tableau_6').hide();
+    }
+
+    function affiche_sexe(){
+        $('#tableau_1').hide();
+        $('#tableau_2').hide();
+        $('#tableau_3').hide();
+        $('#tableau_4').show();
+        $('#tableau_5').hide();
+        $('#tableau_6').hide();
+    }
+
+    function affiche_mois(){
+
+        $('#tableau_1').hide();
+        $('#tableau_2').hide();
+        $('#tableau_3').hide();
+        $('#tableau_4').hide();
+        $('#tableau_5').show();
+        $('#tableau_6').hide();
+
+    }
+
+    function affiche_age(){
+        $('#tableau_1').hide();
+        $('#tableau_2').hide();
+        $('#tableau_3').hide();
+        $('#tableau_4').hide();
+        $('#tableau_5').hide();
+        $('#tableau_6').show();
+    }
+
+    
+</script>
+

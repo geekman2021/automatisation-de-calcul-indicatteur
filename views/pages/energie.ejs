@@ -1,0 +1,231 @@
+<%- include('../partials/header'); -%>
+
+  <div class="container">  
+   
+     
+     <div class="col-md-3" >
+        <div class="row">
+          <h2> <i class="fa fa-angle-right"></i> Liste Energie</h2>
+       </div>
+     </div>
+     
+    <div class="col-md-4" style="padding-top: 20px;">
+      <!-- <input type="search" placeholder="Nom ou numero Lecteur" id="search" onkeyup="searchFun()" class="form-control"> -->
+    </div>
+   <div class="col-md-5" style="padding-top: 20px;">
+     <button type="button" class="btn btn-primary btn-md pull-right fa fa-plus" data-toggle="modal" data-target="#myModal">Ajouter Nouveau Lecteur</button>
+   </div>
+
+   </div>
+</form>
+
+
+<!-- ////////////////////////////////////////////Liste des Energie//////////////////////////////-->
+
+<div class=" container table-responsive">
+  <table id="data" class="table table-bordered table-stripped " style="text-align: center" id='table_lecteur'>
+    <thead>
+      <tr>
+
+        <th style="text-align: center"> Code Energie</th>
+        <th  style="text-align: center"> Lot Energie</th>
+        <th  style="text-align: center"> Action </th>
+
+      </tr>
+    </thead>
+    <tbody id="rrr">
+      <% if(list_energies.length>0){ %>
+        <% list_energies.forEach(energie => { %>
+
+          <tr>
+
+            <td> <%= energie.code_energie %></td>
+            <td><%= energie.lot_energie %></td>
+            <td >
+              <button type="button" id="modifier" data-toggle="modal" data-target="#modalModif" onclick="update_data('<%= energie.code_energie; %>', '<%= energie.lot_energie %>')" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+              <button type="button" id="delete" data-toggle="modal" data-target="#modalSupp" onclick="supprimer('<%= energie.code_energie; %>')"></button>
+            </td>
+
+          </tr>
+        <% }) %>
+        <% } else { %>
+          <tr>
+            <td>liste vide</td>
+          </tr>
+            
+          <% } %>
+    </tbody>
+  </table>
+  
+  
+</div>
+
+
+
+<!-- ////////////////////////////////////////////Modal Ajouter//////////////////////////////-->
+
+<div class="container">
+    
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Ajouter Energie</h4>
+            </div>
+            <form action="energie" method="post">
+              <div class="col-md-6">
+                  <label for="code_energie"> Code Energie</label>
+                  <input type="text" class="form-control" id="code_energie" name="code_energie">
+              </div>
+              <div class="col-md-6">
+                <label for="lot_energie">Lot Energie</label>
+                <input type="text" class="form-control" id="lot_energie" name="lot_energie">
+              </div><br><br><br>
+              <div class="modal-footer">
+                  <div class="md-12" style="display: flex; justify-content: center; align-items: center;">
+                    <button type="submit" class="btn btn-success" >Ajouter</button>
+                    <button type="reset" class="btn btn-warning">Vider les Champs</button>
+                    
+
+                  </div>
+              
+              </div>
+            </form>
+
+        </div>
+        
+      </div>
+    </div>
+    
+</div>
+<!-- ////////////////////Modal suppression/////////////////////////// -->
+  
+<div class="container">
+    
+  <div class="modal fade" id="modalSupp" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Ajouter Energie</h4>
+          </div>
+          <form action="/app/supEnergie" method="POST">
+              <input type="text" id="idEnergie" name="suppEnergie">
+              <div>
+                <button type="button" data-dismiss="modal">Annuler</button>
+              </div>
+              <div>
+                <button type="submit">Supprimer</button>
+              </div>
+          </form>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+<!-- ////////////Modal Modifier/////////////////////////////////////// -->
+
+<div class="container">
+    
+  <div class="modal fade" id="modalModif" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Ajouter Energie</h4>
+          </div>
+          <form action="/app/modif_energie" method="post">
+            <div class="col-md-6">
+                <label for="code_energie"> Code Energie</label>
+                <input type="text" class="form-control" id="code_energieModif" name="code_energieModif">
+            </div>
+            <div class="col-md-6">
+              <label for="lot_energie">Lot Energie</label>
+              <input type="text" class="form-control" id="lot_energieModif" name="lot_energieModiflot_energieModif">
+            </div><br><br><br>
+            <div class="modal-footer">
+                <div class="md-12" style="display: flex; justify-content: center; align-items: center;">
+                  <button type="submit" class="btn btn-success" >Valider</button>
+                  <button type="reset" class="btn btn-warning">Vider les Champs</button>
+                  
+
+                </div>
+            
+            </div>
+          </form>
+
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+
+
+<script>
+  function supprimer(id){
+    
+
+    document.getElementById('idEnergie').value= id;
+      };
+  function update_data(code_energie, lot_energie){
+    document.getElementById('code_energieModif').value= code_energie;
+    document.getElementById('lot_energieModif').value= lot_energie; 
+  };
+
+/////recherche//////////////////////////////
+/*const searchFun = ()=>{
+	let filter =  document.getElementById('search').value.toUpperCase();
+//	let myTable = document.getElementById('data');
+	let tr = data.getElementsByTagName('tr');
+ 
+	for(var i = 0; i<tr.length; i++){
+		let tda = tr[i].getElementsByTagName('td')[0];
+		let tde = tr[i].getElementsByTagName('td')[1];
+    
+    
+		if(tda || tde){
+			let textvalue = tda.textContent || tda.innerHTML;
+			let textv = tde.textContent || tde.innerHTML;
+
+			if(textvalue.toUpperCase().indexOf(filter) > -1){
+				tr[i].style.display = "";
+      
+			}else if(textv.toUpperCase().indexOf(filter) > -1){
+				tr[i].style.display = "";
+       
+      
+			}else{
+				tr[i].style.display = "none";
+      
+        
+			}
+
+		}
+    
+   
+   
+    
+
+	}
+}*/
+
+
+
+</script>
+  
+</body>
+</html>
+  
+

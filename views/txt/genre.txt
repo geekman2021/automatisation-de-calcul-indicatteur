@@ -1,0 +1,57 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  sam. 27 mars 2021 à 08:06
+-- Version du serveur :  5.7.23
+-- Version de PHP :  7.2.10
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données :  `stage`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `genre`
+--
+
+DROP TABLE IF EXISTS `genre`;
+CREATE TABLE IF NOT EXISTS `genre` (
+  `code_genre` varchar(10) NOT NULL,
+  `lot_genre` varchar(50) NOT NULL,
+  PRIMARY KEY (`code_genre`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `genre`
+--
+
+INSERT INTO `genre` (`code_genre`, `lot_genre`) VALUES
+('91', 'remorque'),
+('21', 'Voiture Particulier'),
+('13 ', 'Scooter'),
+('10', 'Moto'),
+('41', 'Commerciale'),
+('22', 'Voiture Familiale'),
+('23', 'Voiture Tout Terrain'),
+('31', 'Car AutoCar'),
+('42', 'Break'),
+('51', 'Camionette'),
+('52', 'Cammion'),
+('70', 'Speciaux'),
+('81', 'Tracteur Agrigo'),
+('82', 'Autres Tracteur'),
+('92', 'Semi-remorque')

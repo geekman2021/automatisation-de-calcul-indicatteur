@@ -1,0 +1,339 @@
+<%- include('../partials/header'); -%>
+
+
+
+
+
+<% if ( locals.flash && locals.flash.success) { %>
+    <script>
+      swal("Ajouter avec succès", "Cliquer sur le boutton OK", "success");
+    </script>
+<% } %>
+
+<div class="container" style="background-color: #f3f3f3;">
+        <form action="/naissance" method="get">
+            <div class="col-md-7" >
+                <div class="row">
+                    <h2> <i class="fa fa-angle-right"></i> Registre Naissance</h2>
+                </div>
+            </div>
+         <!-- <div class="col-md-4" style="padding-top: 20px;">
+            <input type="search" name="search" id="search" onkeyup="searchFun()" placeholder="Tapez Nom ou Numero" class="form-control" >
+         </div> -->
+         <table class="table table-striped table-advance table-hover " style="text-align: center" id='data'>
+            <div class="col-md-5" style="padding-top: 20px;">
+                <button type="button" class="btn btn-primary btn-md pull-right fa fa-plus" data-toggle="modal" data-target="#myModal"> Nouveau Personne</button>
+            </div>
+        </form>
+
+<thead>
+    <tr>
+        <th style="text-align: center; display: none;">ID</th>
+        <th style="text-align: center; display: none;">ID</th>
+        <th style="text-align: center; display: none;">ID</th>
+        <th style="text-align:">ID</th>
+        <th style="text-align: center;">Sexe</th>
+        <th style="text-align: center;">Date de Naiss </th>
+        <th style="text-align: center;">Date d'Enreg</th>
+        <th style="text-align: center;">Format° Sanitaire</th>
+        <th style="text-align: center;">Date Naiss Mere</th>
+        <th style="text-align: center;">Profession Mere</th>
+        <th style="text-align: center;">Date Naiss pere</th>
+        <th style="text-align: center;">Profession pere</th>
+        <th style="text-align: center;">Action</th>
+        <!-- <th style="text-align: center;">Adresse</th>
+        <th style="text-align: center;">Date Naiss pere</th>
+        <th style="text-align: center;">Profession pere</th>
+        <th style="text-align: center;">Action</th> -->
+
+
+    </tr>
+</thead>
+<tbody>
+    <% if(list_personnes.length>0){ %>
+        <% list_personnes.forEach (personne => { %>
+            <tr>
+                <td style="display: none;"><%= personne.ID %></td>
+                <td><%= personne.ID %></td>
+                <td><%= personne.sexe %></td>
+                <td style="display: none;"><%= personne.Date_Naiss %></td>
+                <td style="display: none;"><%= personne.Date_Enre %></td>
+                <td><%= personne.date_naiss %></td>
+                <td><%= personne.date_enreg %></td>
+                <td><%= personne.formation_sanitaire  %></td>
+                <td><%= personne.annee_naiss_mere %></td>
+                <td><%= personne.profession_mere %></td>
+                <td><%= personne.annee_naiss_pere  %></td>
+                <td><%= personne.profession_pere %></td>
+                <td>
+                    <button type="button" class="btn-primary btn-xs" data-toggle="modal" data-target="#modal_modifier" onclick="update_data('<%= personne.ID %>', '<%= personne.Date_Naiss %>', '<%= personne.Date_Enre %>', '<%= personne.annee_naiss_mere %>', '<%= personne.annee_naiss_pere %>', '<%= personne.profession_mere %>', '<%= personne.profession_pere %>'  )"><i class="fa fa-edit"></i></button>
+                    <button type="button" class=" btn-danger btn-xs" data-toggle="modal" data-target="#modal_supprimer" onclick="delete_data('<%= personne.ID %>')"><i class="fa fa-trash"></i></button>
+                </td>
+
+            </tr>
+            <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="5">Aucun Element </td>
+                </tr>
+                <% } %>
+</tbody>
+    </table>
+</div>
+
+
+
+
+<!-- ////////////////////////////////////////////Modal Ajouter//////////////////////////////-->
+
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Ajouter Personne</h4>
+            </div>
+                <form action="naissance" method="post">
+                    <div class="modal-body">
+                        <div class="col-md-12" style="border-bottom: 2px solid rgb(16, 55, 226);">
+                            <b style="margin-bottom: 10px; display: flex ; justify-content: center; align-items: center;">Renseignement Sur enfant</b>
+                        </div>
+                        <div class="col-md-6 form-group" style="margin-top: 20px;"> 
+                            <label for="date_Enregistrement">Date Enregistrement</label>
+                            <input type="date" class="form-control" id="date_enreg" name="date_enreg">
+                        </div>
+
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="date_naiss">Date de Naissance</label>
+                            <input type="date" class="form-control" id="date_naiss" name="date_naiss">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="formation_sanitaire">Formation Sanitaire</label>
+                            <select name="fs" id="fs" class="form-control">
+                                <option> Hors Hopital</option>
+                                <option>Dans L'Hopital</option>
+                            </select>
+                        </div>
+                    <div class="col-md-6 form-group">
+                        <label for="sexe">Sexe</label>
+                        <select name="sexe" id="sexe" class="form-control">
+                            <option> Masculin </option>
+                            <option> Femminin </option>
+                        </select>
+                    </div>
+                    <!-- ////////////////////////////     Mere     ////////////////////////////////////// -->
+
+                    <div class="col-md-12" style="border-bottom: 2px solid rgb(16, 55, 226);">
+                        <b style="margin-bottom: 10px; display: flex ; justify-content: center; align-items: center;">Renseignement Sur Mère</b>
+                    </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="profession_mere"> profession</label>
+                            <input type="text" name="profession_mere" id="profession_mere" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="date_naissance">Annee de Naissance</label>
+                            <input type="number" name="naissance_mere" id="naissance_mere" class="form-control">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="adresse">Adresse</label>
+                            <select name="adresse" id="adresse" class="form-control">
+                                <option>Ambodimanga</option>
+                                <option>Anjoma</option>
+                                <option>Ankirihiry</option>
+                                <option>Autres</option>
+                                <option>Manquant</option>
+                                <option>Morarano</option>
+                                <option>Tanambao V</option>
+                                <option>Toamasina II</option>
+                            </select>
+                        </div>
+                    <!-- //////////////////////////////////////////////     Pere         //////////////////////////-->
+
+                    <div class="col-md-12" style="border-bottom: 2px solid rgb(16, 55, 226);">
+                        <b style="margin-bottom: 10px; display: flex ; justify-content: center; align-items: center;">Renseignement Sur Père</b>
+                    </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="profession_pere"> profession</label>
+                            <input type="text" name="profession_pere" id="profession_pere" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="date_naissance">Annee de Naissance</label>
+                            <input type="number" name="naissance_pere" id="naissance_pere" class="form-control">
+                        </div>
+
+                </div>
+
+                  <div class="modal-footer">
+                    <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                        <button type="submit" class="btn btn-success btn-md" ><i class="fa fa-check"> Ajouter </i></button>
+                        <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+                   </div>
+                  </div>
+                </form>
+    </div>
+      </div>
+    </div>
+    
+</div>
+
+
+<!-- /////////////////////////Modal Modifier//////////////////////////// -->
+
+
+<div class="container">
+    <div class="modal fade" id="modal_modifier" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Modifier</h4>
+            </div>
+
+           
+                <form action="modifier_naissance" method="post">
+                    <div class="modal-body">
+                        <div class="col-md-12" style="border-bottom: 2px solid rgb(16, 55, 226);">
+                            <b style="margin-bottom: 10px; display: flex ; justify-content: center; align-items: center;">Renseignement Sur enfant</b>
+                        </div>
+                        <div class="col-md-6 form-group" style="margin-top: 20px;" >
+                            <label for="date_Enregistrement">Date Enregistrement</label>
+                            <input type="date" class="form-control" id="date_enregModif" name="date_enregModif">
+                        </div>
+                        <div class="col-md-6 form-group" style="margin-top: 20px; display: none;" >
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="IDModif" name="IDModif">
+                        </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="date_naissModif">Date de Naissance</label>
+                            <input type="date" class="form-control" id="date_naissModif" name="date_naissModif">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="formation_sanitaire">Formation Sanitaire</label>
+                            <select name="fsModif" id="fsModif" class="form-control">
+                                <option> Hors Hopital</option>
+                                <option>Dans L'Hopital</option>
+                            </select>
+                        </div>
+                    <div class="col-md-6 form-group">
+                        <label for="sexe">Sexe</label>
+                        <select name="sexeModif" id="sexeModif" class="form-control">
+                            <option> Masculin </option>
+                            <option> Femminin </option>
+                        </select>
+                    </div>
+                    <!-- ////////////////////////////     Mere     ////////////////////////////////////// -->
+
+                    <div class="col-md-12" style="border-bottom: 2px solid rgb(16, 55, 226);">
+                        <b style="margin-bottom: 10px; display: flex ; justify-content: center; align-items: center;">Renseignement Sur Mère</b>
+                    </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="profession_mere"> profession</label>
+                            <input type="text" name="profession_mereModif" id="profession_mereModif" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="date_naissance">Date de Naissance</label>
+                            <input type="text" name="naissance_mereModif" id="naissance_mereModif" class="form-control">
+                        </div>
+                        <!-- <div class="col-md-12 form-group">
+                            <label for="adresse">Adresse</label>
+                            <select name="adresse" id="adresse" class="form-control">
+                                <option>Ambodimanga</option>
+                                <option>Anjoma</option>
+                                <option>Ankirihiry</option>
+                                <option>Autres</option>
+                                <option>Manquant</option>
+                                <option>Morarano</option>
+                                <option>Tanambao V</option>
+                                <option>Toamasina II</option>
+                            </select>
+                        </div> -->
+                        
+                    <!-- //////////////////////////////////////////////     Pere         //////////////////////////-->
+
+                    <div class="col-md-12" style="border-bottom: 2px solid rgb(16, 55, 226);">
+                        <b style="margin-bottom: 10px; display: flex ; justify-content: center; align-items: center;">Renseignement Sur Père</b>
+                    </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="profession_pere"> profession</label>
+                            <input type="text" name="profession_pereModif" id="profession_pereModif" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group"  style="margin-top: 20px;" >
+                            <label for="date_naissance">Date de Naissance</label>
+                            <input type="text" name="naissance_pereModif" id="naissance_pereModif" class="form-control">
+                        </div>
+
+                </div>
+
+                  <div class="modal-footer">
+                    <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                        <button type="submit" class="btn btn-info btn-md" > <i class="fa fa-save"> Enregistrer </i></button>
+                        <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+                     </div>
+                  </div>
+                </form>
+    </div>
+      </div>
+    </div>
+</div>
+
+
+
+<!-- /////////////////Modal Supprimer /////////////////////// -->
+
+<div class="container">
+    <div class="modal fade" id="modal_supprimer" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal-content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Voulez Vous  vraiment Supprimer &nbsp;<b id="" > </b> &nbsp; dans la liste ?</h4>
+                </div>
+                <form action="/app/supp_personne" method="POST">
+                    <div class="col-md-6" style="display: none;">
+                        <input type="text" class="form-control" id="ID_supp" name="ID_supp" >
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="md-12" style="display: flex; justify-content: center; align-items: center;">
+                          <button type="button" class="btn btn-default btn-md" data-dismiss="modal"> <i class="fa fa-times"> NON </i></button>
+                          <button type="submit" class="btn btn-danger btn-md"><i class="fa fa-check"> OUI </i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../partials/footer'); -%>
+
+<!-- /////////////script/////////////////////////////////// -->
+
+
+<script>
+    function update_data(ID, date_naiss, date_enreg, annee_naiss_mere, anne_naiss_pere, profession_mere, profession_pere){
+        document.getElementById('IDModif').value= ID;
+        document.getElementById('date_naissModif').value= date_naiss;
+        document.getElementById('date_enregModif').value= date_enreg;
+        document.getElementById('naissance_mereModif').value= annee_naiss_mere;
+        document.getElementById('naissance_pereModif').value= anne_naiss_pere;
+        document.getElementById('profession_pereModif').value= profession_pere;
+        document.getElementById('profession_mereModif').value= profession_mere;
+    }
+    function delete_data(ID){
+        document.getElementById('ID_supp').value= ID;
+    };
+
+    $(document).ready(function(){
+        $('#data').DataTable({
+            "order": [[0, "desc"]]
+        });
+      });
+</script>
+</body>
+</html>

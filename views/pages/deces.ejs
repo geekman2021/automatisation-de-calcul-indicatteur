@@ -1,0 +1,261 @@
+<%- include('../partials/header'); -%>
+
+<% if ( locals.flash && locals.flash.success) { %>
+    <script>
+      swal("Ajouter avec succès", "Cliquer sur le boutton OK", "success");
+    </script>
+<% } %>
+
+<div class=" container">
+      <div class="container" style="background-color: #f3f3f3;">
+        <form action="/naissance" method="get">
+        
+          <div class="col-md-7" >
+             <div class="row">
+              <h2> <i class="fa fa-angle-right"></i> Registre Décès</h2>
+            </div>
+          </div>
+          
+         <!-- <div class="col-md-4" style="padding-top: 20px;">
+            <input type="search" name="search" id="search" onkeyup="searchFun()" placeholder="Tapez Nom ou Numero" class="form-control" >
+         </div> -->
+         <table class="table table-striped table-advance table-hover" style="text-align: center" id='data'>
+        <div class="col-md-5" style="padding-top: 20px;">
+          <button type="button" class="btn btn-primary btn-md pull-right fa fa-plus" data-toggle="modal" data-target="#myModal"> Declarer un Décès</button>
+        </div>
+     </form>
+</div>
+<thead>
+    <tr>
+        <th style="text-align: center; display: none;">ID</th>
+        <th style="text-align: center">Sexe</th>
+        <th style="text-align: center;">Mois Deces</th>
+        <th style="text-align: center;">Format° Sanitaire </th>
+        <th style="text-align: center;">Cause deces</th>
+        <th style="text-align: center;">Age</th>
+        <th style="text-align: center;">Adresse</th>
+        <th style="text-align: center;">District</th>
+        <th style="text-align: center;">Action</th>
+    </tr>
+</thead>
+<tbody>
+    <% if (list_deces.length>0) { %>
+        <% list_deces.forEach(a =>{ %>
+            <tr>
+                <td style="display: none;"><%= a.deces_id %></td>
+                <td><%= a.sexe %></td>
+                <td><%= a.Mois_deces %></td>
+                <td><%= a.formation_sanitaire %></td>
+                <td><%= a.cause_deces %></td>
+                <td><%= a.age_defunt %></td>
+                <td><%= a.libelle_adresse %></td>
+                <td><%= a.district %></td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-xs"data-toggle="modal" data-target="#modal_modif" onclick="update_data('<%= a.deces_id %>', '<%= a.Mois_deces %>', '<%= a.cause_deces %>', '<%= a.age_defunt %>')"><i class="fa fa-edit"></i></button>
+                    <button type="button" data-toggle="modal" data-target="#modal_supp" class="btn btn-danger btn-xs" onclick="supp_data('<%= a.deces_id %>')"><i class="fa fa-trash"></i></button>
+                </td>
+
+            </tr>
+        <% }) %>
+    <% } else { %>
+        <tr>
+            <td colspan="8">Aucun Element</td>
+        </tr>
+    <% } %>
+    
+</tbody>
+    </table>
+    </div><br><br><br>
+
+<!-- ////////////////////////// Modal Ajouter//////////////////////////// -->
+
+<div class="container">
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Declaration Defunt</h4>
+                </div>
+                <form action="deces" method="post">
+                        <div class="col-md-6 form-group" style="margin-top: 15px;">
+                            <label for="Sexe_defunt">Sexe Defunt</label>
+                            <select name="sexe_defunt" id="sexe_defunt" class="form-control">
+                                <option>Masculin</option>
+                                <option>Feminin</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group" style="margin-top: 15px;">
+                            <label for="date_deces">Mois du Deces</label>
+                            <input type="number" name="Mois_deces" id="Mois_deces" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="fs">Formation Sanitaire</label>
+                            <select name="fs" id="fs" class="form-control">
+                                <option>Hors formation sanitaire</option>
+                                <option>Hôpital</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="age">Age</label>
+                            <input type="number" name="age" id="age" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="adresse">Adresse</label>
+                            <select name="adresse" id="adresse" class="form-control">
+                                <option>Ambodimanga</option>
+                                <option>Anjoma</option>
+                                <option>Ankirihiry</option>
+                                <option>Autres/option>
+                                <option>Manquante</option>
+                                <option>Morarano</option>
+                                <option>Tanambao V</option>
+                                <option>Toamasina</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="cause_deces">Cause du Deces</label>
+                            <input type="text" name="cause_deces" id="cause_deces" class="form-control">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="district">District</label>
+                            <select name="district" id="district" class="form-control">
+                                <option>Toamasina I</option>
+                                <option>Hors Toamasina I</option>
+                            </select>
+                        </div>
+                    <div class="modal-footer">
+                        <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                            <button type="submit" class="btn btn-success btn-md" ><i class="fa fa-check"> Valider </i></button>
+                            <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- /////////////////////////////////////////////////////// Modal modifier //////////////////////////////////////////////// -->
+
+<div class="container">
+    <div class="modal fade" id="modal_modif" role="dialog">
+        <div class="modal-dialog">
+            <!-- modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Modifier</h4>
+                </div>
+                <form action="modif_deces" method="post">
+                    <div class="col-md-12 form-group" style="margin-top: 15px; display: none;">
+                        <label for="ID_modif">ID</label>
+                        <input type="text" name="id_modif" id="id_modif" class="form-control">
+                    </div>
+                        <div class="col-md-6 form-group" style="margin-top: 15px;">
+                            <label for="Sexe_defunt">Sexe Defunt</label>
+                            <select name="sexe_defunt_modif" id="sexe_defunt_modif" class="form-control">
+                                <option>Masculin</option>
+                                <option>Feminin</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group" style="margin-top: 15px;">
+                            <label for="date_deces_modif">Mois du Deces</label>
+                            <input type="number" name="Mois_deces_modif" id="Mois_deces_modif" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="fs_modif">Formation Sanitaire</label>
+                            <select name="fs_modif" id="fs_modif" class="form-control">
+                                <option>Hors formation sanitaire</option>
+                                <option>Hôpital</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="age_modif">Age</label>
+                            <input type="number" name="age_modif" id="age_modif" class="form-control">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="adresse_modif">Adresse</label>
+                            <select name="adresse_modif" id="adresse_modif" class="form-control">
+                                <option>Ambodimanga</option>
+                                <option>Anjoma</option>
+                                <option>Ankirihiry</option>
+                                <option>Autres/option>
+                                <option>Manquante</option>
+                                <option>Morarano</option>
+                                <option>Tanambao V</option>
+                                <option>Toamasina</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="cause_deces_modif">Cause du Deces</label>
+                            <input type="text" name="cause_deces_modif" id="cause_deces_modif" class="form-control">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="district_modif">District</label>
+                            <select name="district_modif" id="district_modif" class="form-control">
+                                <option>Toamasina I</option>
+                                <option>Hors Toamasina I</option>
+                            </select>
+                        </div>
+                    <div class="modal-footer">
+                        <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                            <button type="submit" class="btn btn-info btn-md" > <i class="fa fa-save"> Enregistrer </i></button>
+                            <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ///////////////////////////////////////////////////// Modal Supprimer /////////////////////////////////////////////////////// -->
+
+
+<div class="container">
+    <div class="modal fade" id="modal_supp" role="dialog">
+        <div class="modal-dialog">
+            <!-- modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Êtes-Vous sûre de supprimer cette ligne?</h4>
+                </div>
+                <form action="supp_deces" method="post">
+                        <div class="col-md-6 form-group" style=" display: none;">
+                            <label for="id_supp">ID</label>
+                            <input type="text" name="id_supp" id="id_supp" class="form-control">
+                        </div>
+                    <div class="modal-footer">
+                        <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal"> <i class="fa fa-times"> NON </i></button>
+                            <button type="submit" class="btn btn-danger btn-md"><i class="fa fa-check"> OUI </i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer'); -%>
+
+<script>
+    function update_data(id, mois_deces, cause_deces, age_defunt){
+        document.getElementById('id_modif').value= id;
+        document.getElementById('Mois_deces_modif').value= mois_deces;
+        document.getElementById('cause_deces_modif').value= cause_deces;
+        document.getElementById('age_modif').value= age_defunt;
+    }
+    function supp_data(id){
+        document.getElementById('id_supp').value= id;
+
+    }
+
+    $(document).ready(function(){
+        $('#data').DataTable();
+      });
+</script>

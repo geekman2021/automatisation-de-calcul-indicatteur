@@ -1,0 +1,239 @@
+<%- include('../partials/header'); -%>
+
+<div class="container">
+    <div class="btn-group btn-group-justified">
+    
+        <a href="#" class="btn btn-success" data-toggle="collapse" data-target="#tableau_1"  > LOT </a>
+    
+
+        <a href="#" class="btn btn-success" data-toggle="collapse" data-target="#tableau_2" > GENRE </a>
+    
+
+        <a href="#" class="btn btn-success" data-toggle="collapse" data-target="#tableau_3" > MARQUE </a>
+    
+
+        <a href="#" class="btn btn-success" data-toggle="collapse" data-target="#tableau_4" > ENERGIE </a>
+
+    </div>
+</div>
+
+
+
+
+<!--//////////////////////////////////////////////////   TABLEAU 1 //////////////////////////////////////  -->
+
+<div class="container collapse" id="tableau_1" style="margin-top: 50px;">
+    <table class="table table-striped table-advance table-hover table-bordered " >
+        <thead id="thead1">
+            <tr>
+                <th  style="text-align: center;"> LOT </th>
+                <th  style="text-align: center;">Trimestre 1</th>
+                <th  style="text-align: center;">Trimestre 2</th>
+                <th  style="text-align: center;">Trimestre 3</th>
+                <th  style="text-align: center;">Trimestre 4</th>
+                <th  style="text-align: center;">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody  id="tbody1" style="text-align: center;">
+           
+        </tbody>
+        <tfoot id="tfoot1" style="background-color: #ffcf6b;">
+
+        </tfoot>
+
+    </table>
+</div>
+
+<!--//////////////////////////////////////////////////   TABLEAU 2 //////////////////////////////////////  -->
+
+<div class="container collapse" id="tableau_2" style="margin-top: 50px;">
+    <table class="table table-striped table-advance table-hover table-bordered " >
+        <thead id="thead2">
+            <tr>
+                <th style="text-align: center;">Lot genre</th>
+                <th style="text-align: center;">MUTATION PROVINCE</th>
+                <th style="text-align: center;">VEHICULE NEUFS</th>
+                <th style="text-align: center;"> VEHICULE USAGE IMPORTE</th>
+                <th style="text-align: center;"> TOTAL </th>
+
+            </tr>
+        </thead>
+        <tbody id="tbody2" style="text-align: center;" >
+
+        </tbody>
+        <tfoot id="tfoot2" style="background-color: #ffcf6b;">
+
+        </tfoot>
+    </table>
+</div>
+
+<!--//////////////////////////////////////////////////   TABLEAU 3 //////////////////////////////////////  -->
+
+<div class="container collapse" id="tableau_3" style="margin-top: 50px;">
+    <table class="table table-striped table-advance table-hover table-bordered" >
+        <thead id="thead3">
+            <tr>
+                <th style="text-align: center;">NOM MARQUE</th>
+                <th style="text-align: center;">MUTATION PROVINCE</th>
+                <th style="text-align: center;">VEHICULE NEUFS</th>
+                <th style="text-align: center;"> VEHICULE USAGE IMPORTE</th>
+                <th style="text-align: center;"> TOTAL </th>
+            </tr>
+        </thead>
+        <tbody id="tbody3" style="text-align: center;">
+            <tfoot id="tfoot3" style="background-color: #ffcf6b;">
+            </tfoot>
+        </tbody>
+    </table>
+    
+</div>
+
+<!--//////////////////////////////////////////////////   TABLEAU 4 //////////////////////////////////////  -->
+
+<div class="container collapse" id="tableau_4" style="margin-top: 50px;">
+    <table class="table table-striped table-advance table-hover table-bordered">
+        <thead id="thead4">
+            <tr>
+                <th style="text-align: center;">ENERGIE</th>
+                <th style="text-align: center;">MUTATION PROVINCE</th>
+                <th style="text-align: center;">VEHICULE NEUFS</th>
+                <th style="text-align: center;">VEHICULE USAGE IMPORTE</th>
+                <th style="text-align: center;">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody id="tbody4" style="text-align: center;">
+
+        </tbody>
+
+        <tfoot id="tfoot4" style="background-color: #ffcf6b;">
+
+        </tfoot>
+
+    </table>
+</div>
+
+    <script>
+        window.onload= $("document").ready(function(){
+            $.ajax({
+                url: '/app/resultat',
+                method: "post",
+                dataType: "json",
+                success: (result)=>{
+                    
+                    let lot= result.res1;
+                    let lot_genre= result.res2;
+                    let total= result.res5;
+                    let TOTAL_4= result.res6;
+                    let marque= result.res3;
+                    let energie= result.res4;
+                    
+                    $.each(lot, (i, info) => {
+                        $('#tbody1').append(
+                        `<tr>
+                            <td>${info.lot}</td>
+                            <td>${info.trimestre_1}</td>
+                            <td>${info.trimestre_2}</td>
+                            <td>${info.trimestre_3}</td>
+                            <td>${info.trimestre_4}</td>
+                            <td>${info.TOTAL}</td>
+                        </tr>`
+                    );
+                    });
+
+                    $.each(total, (i, info) => {
+                        $('#tfoot1').append(
+                        `<tr>
+                            <th style="text-align: center;">TOTAL</th>
+                            <th style="text-align: center;">${info.trimestre_1}</th>
+                            <th style="text-align: center;">${info.trimestre_2}</th>
+                            <th style="text-align: center;">${info.trimestre_3}</th>
+                            <th style="text-align: center;">${info.trimestre_4}</th>
+                            <th style="text-align: center;">${info.TOTAL}</th>
+                        </tr>`
+                    );
+                    });
+
+                    $.each(lot_genre, (i, info) => {
+                        $('#tbody2').append(
+                        `<tr>
+                            <td>${info.lot_genre}</td>
+                            <td>${info.mutation}</td>
+                            <td>${info.neufs}</td>
+                            <td>${info.occasion}</td>
+                            <td>${info.total}</td>
+                        </tr>`
+                    );
+                    });
+
+
+                    $.each(TOTAL_4, (i, info) => {
+                        $('#tfoot2').append(
+                        `<tr>
+                            <th style="text-align: center;">TOTAL</th>
+                            <th style="text-align: center;">${info.mutation}</th>
+                            <th style="text-align: center;">${info.neufs}</th>
+                            <th style="text-align: center;">${info.occasion}</th>
+                            <th style="text-align: center;">${info.TOTAL}</th>
+                        </tr>`
+                    );
+                    });
+
+                    $.each(marque, (i, info) => {
+                        $('#tbody3').append(
+                        `<tr>
+                            <td>${info.nom_marque}</td>
+                            <td>${info.mutation}</td>
+                            <td>${info.neufs}</td>
+                            <td>${info.occasion}</td>
+                            <td>${info.total}</td>
+                        </tr>`
+                    );
+                    });
+
+                    $.each(TOTAL_4, (i, info) => {
+                        $('#tfoot3').append(
+                        `<tr>
+                            <th style="text-align: center;">TOTAL</th>
+                            <th style="text-align: center;">${info.mutation}</th>
+                            <th style="text-align: center;">${info.neufs}</th>
+                            <th style="text-align: center;">${info.occasion}</th>
+                            <th style="text-align: center;">${info.TOTAL}</th>
+                        </tr>`
+                    );
+                    });
+                    $.each(energie, (i, info) => {
+                        $('#tbody4').append(
+                        `<tr>
+                            <td>${info.energie}</td>
+                            <td>${info.mutation}</td>
+                            <td>${info.neufs}</td>
+                            <td>${info.occasion}</td>
+                            <td>${info.total}</td>
+                        </tr>`
+                    );
+                    });
+
+                    $.each(TOTAL_4, (i, info) => {
+                        $('#tfoot4').append(
+                        `<tr>
+                            <th style="text-align: center;">TOTAL</th>
+                            <th style="text-align: center;">${info.mutation}</th>
+                            <th style="text-align: center;">${info.neufs}</th>
+                            <th style="text-align: center;">${info.occasion}</th>
+                            <th style="text-align: center;">${info.TOTAL}</th>
+                        </tr>`
+                    );
+                    });
+
+
+                },
+
+                error:()=>{
+                    console.log('error');
+                }
+            });
+
+            
+
+       });
+    </script>

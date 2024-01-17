@@ -1,0 +1,484 @@
+<%- include('../partials/header'); -%>
+
+<% if ( locals.flash && locals.flash.success) { %>
+  <script>
+    swal("Ajouter avec succès", "Cliquer sur le boutton OK", "success");
+  </script>
+<% } %>
+
+<!-- ////////////////////////////////////////////Liste des Vehicule//////////////////////////////-->
+
+<div class="container" style="background-color: #f3f3f3;">
+      <form action="" method="get">
+        <div class="col-md-7" >
+           <div class="row">
+              <h2> <i class="fa fa-angle-right"></i> Liste Vehicule</h2>
+           </div>
+        </div>
+       <!-- <div class="col-md-4" style="padding-top: 20px;">
+          <input type="search" name="search" id="search" onkeyup="searchFun()" placeholder="Tapez Nom ou Numero" class="form-control" >
+       </div> -->
+          <table class="table table-striped table-advance table-hover " style="text-align: center" id='data'>
+      <div class="col-md-5" style="padding-top: 20px;">
+        <button type="button" class="btn btn-primary btn-md pull-right fa fa-plus" data-toggle="modal" data-target="#myModal">Nouveau Vehicule </button>
+      </div>
+
+
+      </form>
+    <thead>
+      <tr>
+
+        <th style="text-align: center;"> Num Immat</th>
+        <th  style="text-align: center;"> Marque</th>
+        <th  style="text-align: center;"> genre</th>
+        <th  style="text-align: center;"> Energie</th>
+        <th  style="text-align: center;">Nom Proprietaire</th>
+        <th  style="text-align: center;">Lot</th>
+        <th style="display: none;"> Date Entree </th>
+        <th style="display: none;"> Date Sortie </th>
+        <th style="display: none;"> Nombre Place </th>
+        <th style=" display: none"> charge_utile</th>
+        <th style="display: none;">Poids Vide</th>
+        <th style="display: none;">Poids Vide</th>
+        <th  style="text-align: center;">Age</th>
+        <th  style="text-align: center; width: 100px;"> Action </th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <% if(list_vehicules.length>0){ %>
+        <% list_vehicules.forEach(vehicule => { %>
+      <tr>
+        <td style="display: none;"><%= vehicule.ID  %></td>
+        <td><%= vehicule.num_immat  %></td>
+        <td><%= vehicule.nom_marque  %></td>
+        <td><%= vehicule.lot_genre  %></td>
+        <td><%= vehicule.energie  %></td>
+        <td><%= vehicule.nom %></td>
+        <td><%= vehicule.Lot %></td>
+        <td style="display:none"><%= vehicule.date_entree  %></td>
+        <td style="display: none;"><%= vehicule.date_sortie  %></td>
+        <td style="display: none;"><%= vehicule.nbre_place  %></td>
+        <td style="display: none;"><%= vehicule.charge_utile  %></td>
+        <td style="display: none;"><%= vehicule.poid_vide  %></td>
+        <td><%= vehicule.age  %> ans</td>
+
+            <td>
+              <button type="button" class="btn_info btn-xs"  data-toggle="modal" data-target="#modal_info" value="<%= vehicule.num_immat  %>"><i class="fa fa-info-circle"></i></button>
+              <button type="button" id=""  data-toggle="modal" data-target="#modal_modifier"  onclick="update_data('<%= vehicule.ID  %>', '<%= vehicule.num_immat  %>',  '<%= vehicule.nbre_place  %>', '<%= vehicule.charge_utile  %>', '<%= vehicule.poid_vide  %>', '<%= vehicule.date_entree  %>', '<%= vehicule.date_sortie  %>')" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></button>
+              <button type="button" id="" data-toggle="modal" data-target="#modal_supprimer" onclick="supprimer('<%= vehicule.num_immat  %>', '<%= vehicule.ID  %>') "  class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+            </td>
+      </tr>
+      <% }) %>
+      <% } else { %>
+        <% } %>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ////////////////////////////////////////////Modal Ajouter//////////////////////////////-->
+
+
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header" >
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Ajouter vehicule</h4>
+        </div>
+          <form action="vehicule" method="post">
+             <div class=" form-group col-md-6"  style="padding-top: 20px;">
+                    <label for="num_immat"> Num Immat</label>
+                    <input type="text" class="form-control" id="num_immat" name="num_immat">
+              </div>
+              <div class="form-group col-md-6"  style="padding-top: 20px;">
+                <label for="code_marque">Nom Marque</label>
+                <select name="code_marque" id="code_marque" class="form-control">
+
+                  <% if(list_marques.length>0) { %>
+                    <% list_marques.forEach(marque => { %>
+                      <option value="<%= marque.code_marque %>"><%= marque.nom_marque %></option>
+                    <% }) } %>
+
+                </select>
+                
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="code_genre">Lot Genre</label>
+                <select name="code_genre" id="code_genre" class="form-control">
+
+                  <% if(list_genres.length>0) { %>
+                    <% list_genres.forEach(genre => { %>
+                      <option value="<%= genre.code_genre %>"><%= genre.lot_genre %></option>
+                    <% }) } %>
+
+                </select>
+              
+              </div>
+
+            <div class="col-md-6 form-group">
+              <label for="code_energie">Energie</label>
+              <select name="code_energie" id="code_energie" class="form-control">
+                
+                    <option>Aucun</option>
+                    <option>Essence</option>
+                    <option>Gasoil</option>
+                    <option>Electrique</option>
+                  
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="date_entree">Date Entrée</label>
+              <input type="date" name="date_entree" id="date_entree" class="form-control" required>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="date_sortie">Date Sortie</label>
+              <input type="date" name="date_sortie" id="date_sortie" class="form-control" required>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="id_proprietaire">ID Proprietaire</label>
+              <select name="id_proprietaire" id="id_proprietaire" class="form-control">
+                <% if(list_proprietaires.length>0) { %>
+                  <% list_proprietaires.forEach(proprietaire => { %>
+                    <option value="<%= proprietaire.id_proprietaire %>"><%= proprietaire.id_proprietaire %>-<%= proprietaire.nom%></option>
+                  <% }) } %>
+
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="nbre_place">Nombre Place</label>
+              <input type="number" class="form-control" id="nbre_place" name="nbre_place">
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="charge_utile">Charge Utile</label>
+              <input type="number" class="form-control" id="charge_utile" name="charge_utile">
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="poid_vide">Poid Vide</label>
+              <input type="number" class="form-control" id="poid_vide" name="poid_vide">
+            </div>
+          
+
+          <div class="col-md-12 form-group">
+              <label for="lot">Lot</label>
+
+              <select name="lot" id="lot" class="form-control">
+
+                <option>Véhicules neufs</option>
+                <option> Véhicules usagés importés</option>
+                <option>Mutation province et proprietaire à la fois</option>
+
+              </select>
+          </div>
+          <div class="modal-footer">
+            <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                <button type="submit" class="btn btn-success btn-md" ><i class="fa fa-check"> Ajouter </i></button>
+                <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+           </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<!-- ////////////////////////////////////////////Modal Modifier//////////////////////////////-->
+
+<div class="container">
+    
+  <div class="modal fade" id="modal_modifier" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Modifier vehicule</h4>
+          </div>
+          <form action="/app/modif_vehicule" method="post">
+                <div class="col-md-6" style="padding-top: 20px;">
+                    <label for="num_immat"> Num Immat</label>
+                    <input type="text" class="form-control" id="num_immatModif" name="num_immatModif">
+                </div>
+
+                <div class=" form-group col-md-6" style="display: none;">
+                  <label for="IDModif"> ID </label>
+                  <input type="text" class="form-control" id="IDModif" name="IDModif">
+                </div>
+                 
+                <div class="form-group col-md-6" style="padding-top: 20px;">
+      
+                  <label for="code_marque">Code Marque</label>
+                  <select name="code_marqueModif" id="code_marqueModif" class="form-control">
+  
+                    <% if(list_marques.length>0) { %>
+                      <% list_marques.forEach(marque => { %>
+                        <option value="<%= marque.code_marque %>"><%= marque.nom_marque %></option>
+                      <% }) } %>
+  
+                  </select>
+                  
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="code_genre">Code Genre</label>
+                  <select name="code_genreModif" id="code_genreModif" class="form-control">
+  
+                    <% if(list_genres.length>0) { %>
+                      <% list_genres.forEach(genre => { %>
+                        <option value="<%= genre.code_genre %>"><%= genre.lot_genre %></option>
+                      <% }) } %>
+  
+                  </select>
+                
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="code_energie">Energie</label>
+                  <select name="code_energieModif" id="code_energieModif" class="form-control">
+                    
+                        <option>Aucun</option>
+                        <option>Essence</option>
+                        <option>Gasoil</option>
+                        <option>Electrique</option>
+                      
+                  </select>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="date_entree">Date Entrée</label>
+                  <input type="date" name="date_entreeModif" id="date_entreeModif" class="form-control">
+                </div>
+    
+                <div class="col-md-6 form-group">
+                  <label for="date_sortie">Date Sortie</label>
+                  <input type="date" name="date_sortieModif" id="date_sortieModif" class="form-control">
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="id_proprietaire">ID Proprietaire</label>
+                  <select name="id_proprietaireModif" id="id_proprietaireModif" class="form-control">
+                    <% if(list_proprietaires.length>0) { %>
+                      <% list_proprietaires.forEach(proprietaire => { %>
+                        <option value="<%= proprietaire.id_proprietaire %>"><%= proprietaire.id_proprietaire %>-<%= proprietaire.nom %></option>
+                      <% }) } %>
+                  </select>
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="nbre_place">Nombre Place</label>
+                  <input type="number" class="form-control" id="nbre_placeModif" name="nbre_placeModif">
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="charge_utile">Charge Utile</label>
+                  <input type="number" class="form-control" id="charge_utileModif" name="charge_utileModif">
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <label for="poid_vide">Poid Vide</label>
+                  <input type="number" class="form-control" id="poid_videModif" name="poid_videModif">
+                </div>
+              <div class="col-md-12 form-group">
+                <label for="lot">Lot</label>
+                <select name="lotModif" id="lotModif" class="form-control">
+                  <option>Véhicules neufs</option>
+                  <option> Véhicules usagés importés</option>
+                  <option>Mutation province et proprietaire à la fois</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+              <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                <button type="submit" class="btn btn-info btn-md" ><i class="fa fa-save"> Enregistrer </i></button>
+                <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+             </div>
+        </div>
+          
+          </form>
+
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+</div>
+
+
+<!-- ////////////////////////////////////////////Modal Supprimer//////////////////////////////-->
+
+
+<div class="container">
+    
+  <div class="modal fade" id="modal_supprimer" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Voulez Vous Vraiment supprimer &nbsp;<b  id="num_immatSupp1"></b> &nbsp; dans la liste?</h4>
+          </div>
+          <form action="supp_vehicule" method="post">
+              <div class="modal-body">
+
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="num_immatSupp" name="num_immatSupp" style="display:none">
+                    <input type="text" class="form-control" id="IDSupp" name="IDSupp" style="display:none">
+                </div>
+            <div class="modal-footer"></div>
+                <div class="md-12" style="display: flex; justify-content: center; align-items: center;">
+                  <button type="button" class="btn btn-default btn-md" data-dismiss="modal" ><i class="fa fa-times"> Non </i></button>
+                  <button type="submit" class="btn btn-danger"><i class="fa fa-check">Oui</i></button>
+                </div>
+
+          </form>
+
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+</div>
+
+
+
+<!-- ////////////////////////////////Modal Info /////////////////////////////////////////////////// -->
+
+
+<div class="container">
+    
+  <div class="modal fade" id="modal_info" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Information vehicule<b  id="num_immatSupp1"></b> &nbsp;</h4>
+          </div>
+          <!-- <form action="/app/supp_vehicule" method="post"> -->
+
+              <div class="modal-body">
+                <table class="table table-striped table-advance table-hover " style="text-align: center">
+                    <div id="test" class="col-lg-6">
+                    </div>
+                    <div id="test2" class="col-lg-6">
+                    </div>
+                  </table>
+
+                <!-- <div class="col-md-12">
+                  <label for="nom"><b>   Nom du proprietaire: </b></label> <span id="nom_info"></span>
+              </div>
+              <div class="col-md-12">
+                <label for="nom"><b> num_immat:  </b></label> <span id="nom_immat"></span>
+              </div> -->
+
+            <div class="modal-footer"></div>
+              
+            
+
+          <!-- </form> -->
+
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+</div>
+</div>
+
+
+<%- include('../partials/footer'); -%>
+
+
+<!-- ////////////////////////////////////////////  SCRIPT //////////////////////////////-->
+<script>
+  function update_data(id, num_immat, nbre_place, charge_utile, poid_vide, date_entree, date_sortie){
+    document.getElementById('IDModif').value= id;
+    document.getElementById('num_immatModif').value= num_immat;
+    document.getElementById('nbre_placeModif').value=nbre_place;
+    document.getElementById('charge_utileModif').value= charge_utile;
+    document.getElementById('poid_videModif').value= poid_vide;
+    document.getElementById('date_entreeModif').value= date_entree;
+    document.getElementById('date_sortieModif').value= date_sortie;
+  }
+  
+
+  function supprimer(num_immat, ID){
+
+    document.getElementById('IDSupp').value= ID;
+    document.getElementById('num_immatSupp1').innerHTML= num_immat;
+
+  }
+
+
+  $("document").ready(function(){
+    $(document).on('click', 'button.btn_info', function(){
+      let num_immat= this.value;
+      $.ajax({
+        url: '/app/get_info',
+        method: 'post', 
+        dataType: "json",
+        data: {num: num_immat},
+        success: (result)=>{
+          let infos= result.info;
+          let body= $('#bbb');
+          //console.log(infos);
+          
+        body.html('');
+
+          $('#test').html(
+            `<p> Num Immat: <b>${infos[0].num_immat}</b></p>
+            <p> Marque: <b>${infos[0].nom_marque}</b></p>
+            <p> Genre: <b>${infos[0].lot_genre}</b></p>
+            <p> Date de mise en circulation: <b>${infos[0].date_sortie}</b></p>`
+            );
+            $('#test2').html(
+              `<p> Nombre place: <b>${infos[0].nbre_place}</b></p>
+              <p> Poid Vide: <b>${infos[0].poid_vide}</b></p>
+              <p> Charge Utile: <b>${infos[0].charge_utile}</b></p>`
+              )
+        },
+
+        error:()=>{
+          console.log("error");
+        }
+      })
+    })
+  })
+
+  $(document).ready(function(){
+    $('#data').DataTable();
+  });
+
+
+
+</script>
+
+
+</body>
+</html>

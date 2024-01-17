@@ -1,0 +1,310 @@
+<%- include('../partials/header'); -%>
+
+<!-- //////////////////////////////////////////  LISTE IPC ///////////////////////////////////////////////////////////////// -->
+
+<% if ( locals.flash && locals.flash.success) { %>
+  <script>
+    swal("Ajouter avec succès", "Cliquer sur le boutton OK", "success");
+  </script>
+<% } %>
+
+<div class="container" style="background-color: #f3f3f3;">
+    <form action="" method="get">
+      <div class="col-md-7">
+         <div class="row">
+           <h2> <i class="fa fa-angle-right"></i> Liste IPC</h2>
+          </div>
+      </div>
+      <table class="table table-striped table-advance table-hover " style="text-align: center" id='data'>
+    <div class="col-md-5" style="padding-top: 20px;">
+      <button type="button" class="btn btn-primary btn-md pull-right fa fa-plus" data-toggle="modal" data-target="#myModal"> Nouveau </button>
+    </div>
+ 
+    </form>
+ 
+    <thead>
+      <tr>
+        <th style="display: none;">ID</th>
+        <th style="text-align: center;">Date Saisie</th>
+        <th style="text-align: center;">ID_PVT</th>
+        <th style="text-align: center;">LIB_PVT </th>
+        <th style="text-align: center;">Type_PVT </th>
+        <th style="text-align: center;">Type_Quest</th>
+        <th style="text-align: center;">TV</th>
+        <th style="text-align: center;">Id_Ser</th>
+        <th style="text-align: center;">Lib_Ser</th>
+        <th style="text-align: center;">Code_Var</th>
+        <th style="text-align: center;">Passage</th>
+        <th style="text-align: center;">Prix</th>
+        <th style="text-align: center;">Poids</th>
+        <th style="text-align: center;">Action</th>
+      </tr>
+    </thead>
+    <tbody style="text-align: center;">
+      <% if (list_ipc.length>0) { %>
+        <% list_ipc.forEach(a =>{ %>
+      <tr>
+        <td style="display: none;"><%= a.ID  %></td>
+        <td><%= a.date_saisi  %></td>
+        <td><%= a.id_pvt  %></td>
+        <td><%= a.lib_pvt  %></td>
+        <td><%= a.typ_pvt  %></td>
+        <td><%= a.typ_qust  %></td>
+        <td><%= a.tv  %></td>
+        <td><%= a.Id_serie  %></td>
+        <td><%= a.lib_ser  %></td>
+        <td><%= a.code_var  %></td>
+        <td><%= a.passage  %></td>
+        <td><%= a.prix  %></td>
+        <td><%= a.poids  %></td>
+
+        <td >
+          <button type="button"  class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal_modif" onclick="update_data('<%= a.ID %>', '<%= a.date_saisi %>', '<%= a.id_pvt %>', '<%= a.lib_pvt  %>', '<%= a.typ_pvt %>', '<%= a.typ_qust %>', '<%= a.Id_serie %>', '<%= a.lib_ser %>', '<%= a.code_var %>',  '<%= a.prix %>', '<%= a.poids %>')" ><i class="fa fa-edit"></i></button>
+          <button type="button"  class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_supp" onclick="delete_data('<%= a.ID %>')" ><i class="fa fa-trash"></i></button>
+        </td>
+
+      </tr>
+      <% })  %>
+      <% } else{ %>
+       liste vide
+       <% } %>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- //////////////////////////////////////////////////  Modal Ajouter /////////////////////////////////////////////////////////// -->
+
+
+  <div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+  
+          <div class="modal-header" >
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Ajouter</h4>
+          </div>
+            <form action="ipc" method="post">
+               <div class=" form-group col-md-6"  style="padding-top: 20px;">
+                      <label for="date_saisi"> Date de Saisi</label>
+                      <input required type="date" class="form-control" id="date_saisi" name="date_saisi">
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="id_pvt">ID Pt de Vente</label>
+                  <input required type="number" class="form-control" name="id_pvt" id="id_pvt">
+                  
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="lib_pvt">Libellé Pt de Vente</label>
+                  <input required type="text" class="form-control" name="lib_pvt" id="lib_pvt">
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="type_pvt">Type Pt de vente</label>
+                  <input required type="number" class="form-control" name="Type_pvt" id="Type_pvt">
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="type_quest">Type Quest</label>
+                  <input required type="text" class="form-control" name="type_quest" id="type_quest">
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="TV">Type Varieté</label>
+                  <select name="TV" id="TV" class="form-control">
+                    <option>E1</option>
+                    <option>E2</option>
+                    <option>O1</option>
+                    <option>O2</option>
+                    <option>O3</option>
+                  </select>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="id_serie">ID Serie</label>
+                  <input required type="number" class="form-control" name="id_serie" id="id_serie">
+              </div>
+                <div class="col-md-6 form-group">
+                  <label for="lib_serie">Libellé Serie</label>
+                  <input required type="text" class="form-control" name="lib_serie" id="lib_serie">
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="code_var">Code Varieté</label>
+                    <input required type="number" class="form-control" name="code_var" id="code_var">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="passage">Passage</label>
+                    <select name="passage" id="passage" class="form-control">
+                      <option >1</option>
+                      <option>2</option>
+                      <option>3</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="prix_vente">Prix Vente</label>
+                    <input required type="number" class="form-control" name="prix_vente" id="prix_vente">
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="poids">Poids</label>
+                    <input required type="number" class="form-control" name="poids" id="poids">
+                </div>
+
+            <div class="modal-footer">
+              <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                  <button type="submit" class="btn btn-success btn-md" ><i class="fa fa-check"> Ajouter </i></button>
+                  <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- //////////////////////////////////////////////////  Modal Modifier /////////////////////////////////////////////////////////// -->
+
+
+  <div class="container">
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_modif" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+  
+          <div class="modal-header" >
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Modifier</h4>
+          </div>
+            <form action="modif_ipc" method="post">
+               <div class=" form-group col-md-6"  style="padding-top: 20px; display: none;">
+                  <label for="ID_Modif"> ID</label>
+                  <input required type="text" class="form-control" id="ID_Modif" name="ID_Modif">
+               </div>
+               <div class=" form-group col-md-6"  style="padding-top: 20px;">
+                      <label for="date_saisi_Modif"> Date de Saisi</label>
+                      <input required type="date" class="form-control" id="date_saisi_Modif" name="date_saisi_Modif">
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="id_pvt_Modif">ID Pt de Vente</label>
+                  <input required type="number" class="form-control" name="id_pvt_Modif" id="id_pvt_Modif">
+                  
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="lib_pvt_Modif">Libellé Pt de Vente</label>
+                  <input required type="text" class="form-control" name="lib_pvt_Modif" id="lib_pvt_Modif">
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="type_pvt_Modif">Type Pt de vente</label>
+                  <input required type="number" class="form-control" name="Type_pvt_Modif" id="Type_pvt_Modif">
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="type_quest_Modif">Type Quest</label>
+                  <input required type="text" class="form-control" name="type_quest_Modif" id="type_quest_Modif">
+                </div>
+                <div class="form-group col-md-6"  style="padding-top: 20px;">
+                  <label for="TV_Modif">Type Varieté</label>
+                  <select name="TV_Modif" id="TV_Modif" class="form-control">
+                    <option>E1</option>
+                    <option>E2</option>
+                    <option>O1</option>
+                    <option>O2</option>
+                    <option>O3</option>
+                  </select>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label for="id_serie_Modif">ID Serie</label>
+                  <input required type="number" class="form-control" name="id_serie_Modif" id="id_serie_Modif">
+              </div>
+                <div class="col-md-6 form-group">
+                  <label for="lib_serie_Modif">Libellé Serie</label>
+                  <input required type="text" class="form-control" name="lib_serie_Modif" id="lib_serie_Modif">
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="code_var_Modif">Code Varieté</label>
+                    <input required type="number" class="form-control" name="code_var_Modif" id="code_var_Modif">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="passage_Modif">Passage</label>
+                    <select name="passage_Modif" id="passage_Modif" class="form-control">
+                      <option >1</option>
+                      <option>2</option>
+                      <option>3</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="prix_vente_Modif">Prix Vente</label>
+                    <input required type="number" class="form-control" name="prix_vente_Modif" id="prix_vente_Modif">
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="poids_Modif">Poids</label>
+                    <input required type="number" class="form-control" name="poids_Modif" id="poids_Modif">
+                </div>
+
+            <div class="modal-footer">
+              <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+                <button type="submit" class="btn btn-info btn-md" ><i class="fa fa-save"> Enregistrer </i></button>
+                  <button type="reset" class="btn btn-danger btn-md"><i class="fa fa-undo"> Vider les Champs </i></button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--  ///////////////////////////////////////////////////  Modal Supprimer /////////////////////////////////////////////////////////// -->
+
+<div class="container">
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal_supp" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header" >
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 style="display: flex; justify-content: center; align-items: center" class="modal-title">Êtes-Vous Sûre de supprimer cette ligne?</h4>
+        </div>
+          <form action="supp_ipc" method="post">
+             <div class=" form-group col-md-6"  style="padding-top: 20px; display: none;">
+                <label for="ID_supp"> ID</label>
+                <input required type="text" class="form-control" id="ID_supp" name="ID_supp">
+             </div>
+          <div class="modal-footer">
+            <div class="form-group col-md-12" style="padding-top: 20px;  text-align: center;">
+              <button type="button" class="btn btn-default btn-md" data-dismiss="modal"> <i class="fa fa-times"> NON </i></button>
+              <button type="submit" class="btn btn-danger btn-md"><i class="fa fa-check"> OUI </i></button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<%- include('../partials/footer'); -%>
+
+<script>
+  function update_data(id, date_saisi, id_pvt, lib_pvt, typ_pvt, typ_qust, id_serie, lib_ser, code_var, prix, poids) {
+      document.getElementById('ID_Modif').value= id;
+      document.getElementById('date_saisi_Modif').value= date_saisi;
+      document.getElementById('id_pvt_Modif').value= id_pvt;
+      document.getElementById('lib_pvt_Modif').value= lib_pvt;
+      document.getElementById('Type_pvt_Modif').value= typ_pvt;
+      document.getElementById('type_quest_Modif').value= typ_qust;
+      document.getElementById('id_serie_Modif').value= id_serie;
+      document.getElementById('lib_serie_Modif').value= lib_ser;
+      document.getElementById('code_var_Modif').value= code_var;
+      document.getElementById('prix_vente_Modif').value= prix;
+      document.getElementById('poids_Modif').value= poids;
+  }
+  function delete_data(id_supp){
+    document.getElementById('ID_supp').value= id_supp;
+  }
+</script>

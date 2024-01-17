@@ -1,0 +1,904 @@
+<%- include('../partials/header'); -%>
+
+    <div class="container">
+
+        <!-- ------------------ FORMULAIRE AJOUT --------------------- -->
+
+        <div class="container-fluid">
+
+            <div class="modal fade" id="ajout" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="#">Ajout</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/api/menage" method="POST" id="formAjout">
+                                <div>
+                                    <div class="inpField mt-3" hidden>
+                                        <label for="Arrmasquer" style="font-size: .8rem;font-weight: bold"> Arrondissement </label>
+                                        <input type="text" id="Arrmasquer" class="form-control" name="arrmasquer"
+                                            style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                            <span id="errIdLogement" style="font-size: 10px;"></span>
+                                    </div>
+                                    <div class="inpField mt-3">
+                                        <label for="idLogeAjout" style="font-size: .8rem;font-weight: bold">ID
+                                            Logement</label>
+                                        <input type="text" id="idLogeAjout" class="form-control" name="lot"
+                                            style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                            <span id="errIdLogement" style="font-size: 10px;"></span>
+                                    </div>
+                                    <div class="inpField mt-3">
+                                        <label for="numCarnet"
+                                            style="font-size: .8rem;font-weight: bold">N° Carnet</label>
+                                        <input id="numCarnet" type="text" class="form-control" name="ref"
+                                            style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                        <span id="errNumCarnet" style="font-size: 10px;"></span>
+                                    </div>
+                                    <div class="inpField mt-3">
+                                        <label for="dtArr" style="font-size: .8rem;font-weight: bold">Date Arrivée</label>
+                                        <input type="date" class="form-control" name="dateArrivee" id="dtArr"
+                                            style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                    </div>
+                                    <div class="inpField mt-3" hidden>
+                                        <label for="dtDep" style="font-size: .8rem;font-weight: bold">Date Départ</label>
+                                        <input type="date" class="form-control" name="dateDepart" id="dtDep"
+                                            style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                    </div>
+                                </div>
+                                <div class="form-btn modal-footer">
+                                    <div>
+                                        <button class="btn-ajouter" type="submit" value="Ajouter">Ajouter</button>
+                                    </div>
+                                    <div>
+                                        <button class="btn-annuler" data-bs-dismiss="modal">Annuler</button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORMULAIRE INSERT VIA LOGEMENT -->
+            <div class="container-fluid">
+
+                <div class="modal fade" id="insert" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="#">Ajout</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/api/menage" method="POST" id="formVia">
+                                    <div>
+                                        <div class="inpField mt-3">
+                                            <label for="insIdLoge" style="font-size: .8rem;font-weight: bold">ID
+                                                Logement</label>
+                                            <input type="text" class="form-control" name="lot" id="insIdLoge"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;" readonly>
+                                        </div>
+                                        <div class="inpField mt-3">
+                                            <label for="refVia" style="font-size: .8rem;font-weight: bold">N°
+                                                Carnet</label>
+                                            <input type="text" class="form-control" name="ref" id="refVia"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                                <span id="errNumCarnetVia" style="font-size: 10px;"></span>
+                                        </div>
+                                        <div class="inpField mt-3">
+                                            <label for="datArri" style="font-size: .8rem;font-weight: bold">Date
+                                                Arrivée</label>
+                                            <input type="date" class="form-control" name="dateArrivee" id="datArri"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                        </div>
+                                        <div class="inpField mt-3" hidden>
+                                            <label for="datDepa" style="font-size: .8rem;font-weight: bold">Date Départ</label>
+                                            <input type="date" class="form-control" name="dateDepart" id="datDepa"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-btn modal-footer">
+                                        <div>
+                                            <button class="btn-ajouter" type="submit" value="Ajouter">Ajouter</button>
+                                        </div>
+                                        <div>
+                                            <button class="btn-annuler" data-bs-dismiss="modal">Annuler</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------ FORMULAIRE MODIFICATION --------------------- -->
+                <div class="modal fade" id="modif" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header modal-header">
+                                <h4 class="modal-title" id="#">Modification</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/api/menageModif" method="POST" id="formModif">
+                                    <div>
+                                        <div class="inpField mt-3" hidden>
+                                            <label for="Arrmasquermodif" style="font-size: .8rem;font-weight: bold"> Arrondissement </label>
+                                            <input type="text" id="Arrmasquermodif" class="form-control" name="arrmasquermodif"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                                <span id="errIdLogement" style="font-size: 10px;"></span>
+                                        </div>
+                                        <div class="inpField mt-3">
+                                            <label for="idMe" class="mb-1"
+                                                style="font-size: .8rem;font-weight: bold">#</label>
+                                            <input type="text" id="idMe" class="form-control" name="idM" readonly
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                        </div>
+                                        <div class="inpField mt-3">
+                                            <label for="lot" class="mb-1" style="font-size: .8rem;font-weight: bold">ID
+                                                Loge</label>
+                                            <input type="text" class="form-control" name="lot" id="lot"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                                <span id="errIdLogementModif" style="font-size: 10px;"></span>
+                                        </div>
+                                        <div class="inpField mt-3">
+                                            <label for="ref" class="mb-1" style="font-size: .8rem;font-weight: bold">N°
+                                                Carnet</label>
+                                            <input type="text" class="form-control" name="ref" id="ref"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                                <span id="errNumCarnetModif" style="font-size: 10px;"></span>
+                                        </div>
+                                        <div class="inpField mt-3">
+                                            <label for="dateArri"
+                                                style="font-size: .8rem;font-weight: bold">Date Arrivée</label>
+                                            <input type="date" class="form-control" name="dateA" id="dateArri"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                        </div>
+                                        <div class="inpField mt-3">
+                                            <label for="dateDepa" 
+                                                style="font-size: .8rem;font-weight: bold">Date Départ</label>
+                                            <input type="date" class="form-control" name="dateD" id="dateDepa"
+                                                style="border-top:none ; border-left: none; border-right: none; border-radius: 0px;">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-btn modal-footer">
+                                        <div>
+                                            <button class="btn-ajouter" type="submit"
+                                                value="Enregistrer">Enregistrer</button>
+                                        </div>
+                                        <div>
+                                            <button class="btn-annuler" data-bs-dismiss="modal">Annuler</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ------------------ SUPRESSION --------------------- -->
+
+                <div class="modal fade" id="suppr" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header suppr">
+                                <h4 class="modal-title" id="#">Supression</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Voulez-vous vraiment supprimer ?</p>
+                                <form action="/api/menageSuprim" method="POST">
+                                    <div class="mb-2" style="display: none;">
+                                        <label for="" class="form-label">Code Arrondissement</label>
+                                        <input type="text" class="form-control" id="codd" name="codd" readonly>
+                                    </div>
+                                    <div class="mb-2" style="display: none;">
+                                        <label for="" class="form-label">Identification</label>
+                                        <input type="text" class="form-control" id="idM" name="suppr" readonly>
+                                    </div>
+
+                                    <div>
+                                        <div>
+                                            <button type="button" class="btn-annuler"
+                                                data-bs-dismiss="modal">Annuler</button>
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn-ajouter" id="#">Supprimer</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOUTON INFO -->
+                <div class="modal fade" id="liste" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered ">
+                        <div class="modal-content">
+                            <div class="modal-header suppr">
+                                <h4 class="modal-title">INFORMATION</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p style="border-bottom: solid #86cfff;">ID Menage : <span id="titre_info"
+                                        style="font-weight: bold;"></span> <span id="dA"
+                                        style="margin-left: 205px;"></span> <span id="dD"></span> </p>
+                                <p><span id="Arrondisse"></span></p>
+                                <p> <span id="fokon"></span> <span id="lotiss"></span> </p>
+                                <p> <span id="effectifs"></span> </p>
+
+                                <table class="table table-info table-striped align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nom & prenom(s)</th>
+                                            <th style="text-align: center;">Sexe</th>
+                                            <th style="text-align: center;">Lien</th>
+                                            <th style="text-align: center;">Age</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabledata">
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--DERNIERE ENREGISTREMENT && ELEMENT LOGEMENT -->
+
+                <div class="row g-4">
+
+                    <div class="row">
+                        <div class="col-6">
+
+                            <div class="accordion" id="accordionExample1">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree" onclick="voir()">
+                                            Dernier enregistrement menage
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample1">
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-6">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                            aria-expanded="false" aria-controls="collapseFour" onclick="afficher()">
+                                            Dernier Logement ajouté
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFour" class="accordion-collapse collapse"
+                                        aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- FILTRE -->
+                    <select name="filtreArr" id="filtreArr" onchange="voirListe(this.value)">
+                        <option value="301001">Ambodimanga</option>
+                        <option value="301002">Anjoma</option>
+                        <option value="301003">Morarano</option>
+                        <option value="301004">Tanambao V</option>
+                        <option value="301005">Ankirihiry</option>
+                    </select>
+
+
+                    <div id="listeFiltre">
+                        <caption>
+                            <% if(locals.flash && locals.flash.error){ %>
+                                <div class="alert alert-danger">
+                                    <strong>Attention! </strong>
+                                    <%= flash.error %>
+                                </div>
+                                <% } %>
+                                    <% if(locals.flash && locals.flash.success){ %>
+                                        <div class="alert alert-success">
+                                            <strong>Succès! </strong>
+                                            <%= flash.success %>
+                                        </div>
+                                        <% } %>
+                        </caption>
+
+                    </div>
+
+
+
+                    <div class="center" style="display: none;">
+                        <h3>LISTE DE MENAGE</h3>
+                    </div>
+                    <div class="p-4 border bg-light" style="display: none;">
+                        <caption>
+                            <% if(locals.flash && locals.flash.error){ %>
+                                <div class="alert alert-danger">
+                                    <strong>Attention! </strong>
+                                    <%= flash.error %>
+                                </div>
+                                <% } %>
+                                    <% if(locals.flash && locals.flash.success){ %>
+                                        <div class="alert alert-success">
+                                            <strong>Succès! </strong>
+                                            <%= flash.success %>
+                                        </div>
+                                        <% } %>
+                        </caption>
+
+                        <button type="button" class="btn-nouveau" data-bs-toggle="modal" data-bs-target="#ajout">+
+                            Nouveau</button>
+                        <input placeholder=" N° Carnet ou Chef de menage" id="search" class="rech" onkeyup="searchFun()"
+                            style="float: right;">
+
+                        <table id="donnees" class="table table-striped align-middle">
+                            <p class="mt-2" style="border-bottom: solid #86cfff; width: 200px;"> Nombre d'elements : <b>
+                                    <%= nb %>
+                                </b> </p>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID Loge</th>
+                                    <th>N° Carnet</th>
+                                    <th>Chef de Menage</th>
+                                    <th style="text-align : center;">Détails</th>
+                                    <th style="display: none;">Date Arrivee</th>
+                                    <th style="display: none;">Date Arrivee</th>
+                                    <th style="display: none;">Date Depart</th>
+                                    <th style="display: none;">Date Depart</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (listMenage.length> 0) { %>
+                                    <% listMenage.forEach(menage=> { %>
+
+                                        <tr>
+                                            <td>
+                                                <%= menage.idMenage %>
+                                            </td>
+                                            <td>
+                                                <%= menage.idLoge %>
+                                            </td>
+                                            <td>
+                                                <%= menage.reference %>
+                                            </td>
+                                            <td>
+                                                <%= menage.nomPrenom %>
+                                            </td>
+                                            <td style="text-align : center;"><button type="button"
+                                                    class="btn btn-outline-primary btn_info btn-action david"
+                                                    data-bs-toggle="modal" data-bs-target="#liste"
+                                                    value="<%= menage.idMenage %>"
+                                                    onclick="info_data('<%= menage.idMenage ;%>')"><img
+                                                        class="btn-action-menage" src="/css/Icones/info.png"
+                                                        alt=""></button>
+                                            </td>
+                                            <td style="display: none;">
+                                                <%= menage.dateArrivee %>
+                                            </td>
+                                            <td style="display: none;">
+                                                <%= menage.dateStyle %>
+                                            </td>
+                                            <td style="display: none;">
+                                                <%= menage.dateDepart %>
+                                            </td>
+                                            <td style="display: none;">
+                                                <%= menage.dateStyle2 %>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-primary btn-action david"
+                                                    data-bs-toggle="modal" data-bs-target="#modif"
+                                                    onclick="update_data('<%= menage.idMenage ;%>','<%= menage.idLoge ;%>','<%= menage.reference ;%>','<%= menage.dateArrivee ;%>','<%= menage.dateDepart ;%>')"><img
+                                                        class="btn-action-menage" src="/css/Icones/edit.png"
+                                                        alt=""></button>
+                                                <button class="btn btn-outline-primary btn-action david"
+                                                    data-bs-toggle="modal" data-bs-target="#suppr"
+                                                    onclick="delete_data('<%= menage.idMenage ;%>')"><img
+                                                        class="btn-action-menage" src="/css/Icones/garbage.png"
+                                                        alt=""></button>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="7" style="text-align: center;"> Aucun élément </td>
+                                                </tr>
+                                                <% } %>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <script>
+                    function delete_data(idM, cdA) {
+                        document.getElementById('idM').value = idM;
+                        document.getElementById('codd').value = cdA;
+                    };
+
+                    function update_data(a, x, y, b, c, cd) {
+                        //alert(nom);
+                        document.getElementById('idMe').value = a;
+                        document.getElementById('lot').value = x;
+                        document.getElementById('ref').value = y;
+                        document.getElementById('dateArri').value = b;
+                        document.getElementById('dateDepa').value = c;
+                        document.getElementById('Arrmasquermodif').value = cd;
+
+                    };
+
+                    // function info_data(inf) {
+                    //     document.getElementById('titre_info').innerHTML = inf;
+                    // };
+
+                    const searchFun = () => {
+                        let filter = document.getElementById('search').value.toUpperCase();
+                        let myTable = document.getElementById('donnees');
+                        let tr = donnees.getElementsByTagName('tr');
+
+                        for (var i = 0; i < tr.length; i++) {
+                            let tda = tr[i].getElementsByTagName('td')[3];
+                            let tde = tr[i].getElementsByTagName('td')[2];
+
+                            if (tda || tde) {
+                                let textvalue = tda.textContent || tda.innerHTML;
+                                let textv = tde.textContent || tde.innerHTML;
+
+                                if (textvalue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else if (textv.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+
+                </script>
+
+                <script>
+                    window.onload = function(){
+                        $("document").ready(function (){
+                            voirListe('301001');
+                        })
+
+                    };
+                     
+                    function voirListe(a) {
+                            let arrondissement = a;
+                        document.getElementById('Arrmasquer').value = a;
+                    
+                        
+                        $.ajax({
+                            url: '/api/get_filtre',
+                            method: 'post',
+                            dataType: "json",
+                            data: { arr: arrondissement },
+
+                            success: (resultat) => {
+                                let listeFiltre = resultat.resultatsFiltre;
+                                $('#listeFiltre').html(`
+                                <div class="p-4 border bg-light">
+                                <button type="button" class="btn-nouveau" data-bs-toggle="modal" data-bs-target="#ajout">+
+                                Nouveau</button>
+                                <input placeholder=" N° Carnet ou Chef de menage" id="search" class="rech" onkeyup="searchFun()"
+                                    style="float: right;">
+                                <table id="donnees" class="table table-striped align-middle">
+                                    <p class="mt-2" style="border-bottom: solid #86cfff; width: 200px;"> Nombre d'elements : <b>
+                                    ${resultat.nbr}
+                                </b> </p>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ID Loge</th>
+                                            <th>N° Carnet</th>
+                                            <th>Chef de Menage</th>
+                                            <th style="text-align : center;">Détails</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id='listeAr'>
+
+                                    </tbody>
+                                </table>`);
+                                if (listeFiltre.length > 0) {
+                                    $.each(listeFiltre, (i, info) => {
+                                    $("#listeAr").append(`
+                                    <tr>
+                                        <td>${info.idMenage}</td>
+                                        <td> ${info.idLoge}</td>
+                                        <td>${info.reference}</td>
+                                        <td>${info.nomPrenom}</td>
+                                        <td style="text-align : center;"><button type="button"
+                                                    class="btn btn-outline-primary btn_info btn-action david"
+                                                    data-bs-toggle="modal" data-bs-target="#liste"
+                                                    onclick="info_data('${info.idMenage}', '${resultat.code}')"><img
+                                                        class="btn-action-menage" src="/css/Icones/info.png"
+                                                        alt=""></button>
+                                            </td>
+                                        <td>
+                                                <button type="button" class="btn btn-outline-primary btn-action david"
+                                                    data-bs-toggle="modal" data-bs-target="#modif"
+                                                    onclick="update_data('${ info.idMenage }','${ info.idLoge }','${ info.reference }','${ info.dateArrivee }','${ info.dateDepart }','${resultat.code}')"><img
+                                                        class="btn-action-menage" src="/css/Icones/edit.png"
+                                                        alt=""></button>
+                                                <button class="btn btn-outline-primary btn-action david"
+                                                    data-bs-toggle="modal" data-bs-target="#suppr"
+                                                    onclick="delete_data('${ info.idMenage }','${resultat.code}')"><img
+                                                        class="btn-action-menage" src="/css/Icones/garbage.png"
+                                                        alt=""></button>
+                                        </td>
+                                    </tr>
+                                    </div>`);
+                                })
+                                } else {
+                                    $("#listeAr").html(`
+                                    <tr>
+                                        <td colspan="7" style="text-align: center;"> Aucun élément </td>
+                                    </tr>`);
+                                }
+
+                            },
+                            error: () => {
+                                console.log("error");
+                            }
+                        })
+                    };
+            
+                </script>
+                <script>
+                    function info_data(a, b) {
+                            let reference = a;
+                            let code = b;
+                            document.getElementById('titre_info').innerHTML = a;
+
+                            $.ajax({
+                                url: '/api/get_info',
+                                method: 'post',
+                                dataType: "json",
+                                data: { ref: reference, cod : code },
+                                success: (result) => {
+                                    let infos = result.info;
+                                    let body = $('#tabledata');
+
+                                    $('#effectifs').html(`Effectifs : <b>${result.nb}</b>`);
+                                    $('#dA').html(`Date d'arrivée : <b>${infos[0].dateStyle}</b>`);
+                                    $('#dD').html(`| Date de départ : <b>${infos[0].dateDepart}</b>`);
+                                    $('#Arrondisse').html(`Code Arrondissement : <b>${infos[0].codeArr}</b> | Nom : <b>${infos[0].nomArr}</b>`);
+                                    $('#fokon').html(`Code Fokontany : <b>${infos[0].codeFkt}</b> | Nom : <b>${infos[0].nomFkt}</b> | Adresse : <b>${infos[0].adresse}</b>`);
+
+
+                                    body.html('');
+
+                                    $.each(infos, (i, info) => {
+                                        body.append(`<tr>
+                                                        <td>${info.idPers}</td>
+                                                        <td>${info.nomPrenom}</td>
+                                                        <td style="text-align: center;">${info.sexe}</td>
+                                                        <td style="text-align: center;">${info.lienAvecChef}</td>
+                                                        <td style="text-align: center;">${info.age} ans</td>
+                                                    </tr>`
+                                        );
+                                    })
+                                },
+
+                                error: () => {
+                                    console.log("error");
+                                }
+                            })
+                        };
+
+                </script>
+
+                <script>
+
+                    function voir() {
+                        $.ajax({
+                            url: '/api/get_last',
+                            method: 'post',
+                            dataType: "json",
+
+                            success: (resultat) => {
+                                let information = resultat.info;
+                                $('#collapseThree').html(`
+                    
+                    <table class="table table-info table-striped align-middle" style="margin-bottom:0px; ">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>N° Carnet</th>
+                                <th>Adresse</th>
+                                <th>Date Arrivée</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>${information[0].idMenage}</td>
+                                <td>${information[0].reference}</td>
+                                <td>${information[0].adresse}</td>
+                                <td>${information[0].dateStyle}</td>
+                        </tbody>
+                    </table>`);
+                                $('#collapseThree').show();
+                                // hide = window.setTimeout(hideTableau, 2000);
+
+                            },
+                            error: () => {
+                                console.log("error");
+                            }
+                        })
+                    };
+
+                    function hideTableau() {
+                        $('#last').hide();
+
+                    }
+                </script>
+
+                <script>
+                    function afficher() {
+                        $.ajax({
+                            url: '/api/get_elemLog',
+                            method: 'post',
+                            dataType: "json",
+
+                            success: (resultat) => {
+                                let infor = resultat.information;
+                                $('#collapseFour').html(`
+                
+                    <table class="table table-info table-striped align-middle" style="margin-bottom: 0px">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">ID</th>
+                                <th>Fokontany</th>
+                                <th style="text-align: center;">Adresse</th>
+                                <th style="text-align: center;">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                                
+                            <tr>
+                                <td style="text-align: center;">${infor[0].idLoge}</td>
+                                <td>${infor[0].codeFkt}</td>
+                                <td style="text-align: center;">${infor[0].adresse}</td>
+                                <td style="text-align: center;"><button onclick="insert_data('${infor[0].idLoge}')" type="button"  class="btn-nouveau" data-bs-toggle="modal" data-bs-target="#insert">+ Nouveau</button></td>
+                            </tr>   
+                        </tbody>
+                    </table>`);
+                                $('#collapseFour').show();
+                                // hide = window.setTimeout(hideTableau, 2000);
+
+                            },
+                            error: () => {
+                                console.log("error");
+                            }
+                        })
+                    };
+
+                    // function masquerTableau() {
+                    //     $('#elem').hide();
+
+                    // }
+                    function insert_data(idLogement) {
+                        document.getElementById('insIdLoge').value = idLogement;
+                    }
+                </script>
+
+                <script>
+
+                    let formAjout = document.getElementById('formAjout');
+
+                    formAjout.addEventListener('submit', function (e) {
+                        let numCarnet = document.getElementById('numCarnet');
+                        let idLogeAjout = document.getElementById('idLogeAjout');
+                        let myRegexNumCarnet = /^[a-zA-Z0-9]+$/;
+                        let myRegexidLogeAjout = /^[0-9]+$/;
+
+                        if (numCarnet.value.trim() == "") {
+                            let errNumCarnet = document.getElementById('errNumCarnet');
+                            errNumCarnet.innerHTML = "*Le champs N° Carnet est requis.";
+                            errNumCarnet.style.color = 'red';
+                            numCarnet.style.borderBottomColor = 'red';
+                            numCarnet.style.boxShadow = 'none'
+                            e.preventDefault();
+                        } else if (numCarnet.value.length > 6) {
+                            let errNumCarnet = document.getElementById('errNumCarnet');
+                            errNumCarnet.innerHTML = "*Le N° Carnet doit comporter au maximum 6 caractères.";
+                            errNumCarnet.style.color = 'red';
+                            numCarnet.style.borderBottomColor = 'red';
+                            numCarnet.style.boxShadow = 'none'
+                            e.preventDefault();
+                        }else if (myRegexNumCarnet.test(numCarnet.value) == false) {
+                            let errNumCarnet = document.getElementById('errNumCarnet');
+                            errNumCarnet.innerHTML = "*Le N° Carnet ne doit comporter que des lettres et des chiffres uniquement.";
+                            errNumCarnet.style.color = 'red';
+                            numCarnet.style.borderBottomColor = 'red';
+                            numCarnet.style.boxShadow = 'none'
+                            e.preventDefault();
+                        } else{
+                            let errNumCarnet = document.getElementById('errNumCarnet');
+                            errNumCarnet.innerHTML = "";
+                            numCarnet.style.borderBottomColor = 'green';
+                        }
+
+                        // ----------------------------------------------------------------
+
+                        if (idLogeAjout.value.trim() == "") {
+                            let errIdLogement = document.getElementById('errIdLogement');
+                            errIdLogement.innerHTML = "*Le champs Id Logement est requis.";
+                            errIdLogement.style.color = 'red';
+                            idLogeAjout.style.borderBottomColor = 'red';
+                            idLogeAjout.style.boxShadow = 'none'
+                            e.preventDefault();
+
+                        }else if (idLogeAjout.value.length > 5 ){
+                            let errIdLogement = document.getElementById('errIdLogement');
+                            errIdLogement.innerHTML = "*Le N° Carnet doit comporter au maximum 5 caractères.";
+                            errIdLogement.style.color = 'red';
+                            idLogeAjout.style.borderBottomColor = 'red';
+                            idLogeAjout.style.boxShadow = 'none'
+                            e.preventDefault();
+
+                        }else if (myRegexidLogeAjout.test(idLogeAjout.value) == false){
+                            let errIdLogement = document.getElementById('errIdLogement');
+                            errIdLogement.innerHTML = "*Le champs Id Logement ne doit contenir que des chiffres.";
+                            errIdLogement.style.color = 'red';
+                            idLogeAjout.style.borderBottomColor = 'red';
+                            idLogeAjout.style.boxShadow = 'none'
+                            e.preventDefault();
+                        }else{
+                            let errIdLogement = document.getElementById('errIdLogement');
+                            errIdLogement.innerHTML = "";
+                            idLogeAjout.style.borderBottomColor = 'green';
+                        }
+
+
+                    });
+
+                    // ----------------FORM VIA --------------------------------
+
+                    let formVia = document.getElementById('formVia');
+
+                    formVia.addEventListener('submit', function (e) {
+                        let refVia = document.getElementById('refVia');
+                        let myRegexNumCarnet = /^[a-zA-Z0-9]+$/;
+
+                        if (refVia.value.trim() == "") {
+                            let errNumCarnetVia = document.getElementById('errNumCarnetVia');
+                            errNumCarnetVia.innerHTML = "*Le champs N° Carnet est requis.";
+                            errNumCarnetVia.style.color = 'red';
+                            refVia.style.borderBottomColor = 'red';
+                            refVia.style.boxShadow = 'none'
+                            e.preventDefault();
+                        } else if (refVia.value.length > 6) {
+                            let errNumCarnetVia = document.getElementById('errNumCarnetVia');
+                            errNumCarnetVia.innerHTML = "*Le N° Carnet doit comporter au maximum 6 caractères.";
+                            errNumCarnetVia.style.color = 'red';
+                            refVia.style.borderBottomColor = 'red';
+                            refVia.style.boxShadow = 'none'
+                            e.preventDefault();
+                        }else if (myRegexNumCarnet.test(refVia.value) == false) {
+                            let errNumCarnetVia = document.getElementById('errNumCarnetVia');
+                            errNumCarnetVia.innerHTML = "*Le N° Carnet ne doit comporter que des lettres et des chiffres uniquement.";
+                            errNumCarnetVia.style.color = 'red';
+                            refVia.style.borderBottomColor = 'red';
+                            refVia.style.boxShadow = 'none'
+                            e.preventDefault();
+                        } else{
+                            let errNumCarnetVia = document.getElementById('errNumCarnetVia');
+                            errNumCarnetVia.innerHTML = "";
+                            refVia.style.borderBottomColor = 'green';
+                        }
+
+
+                    });
+
+                    // ---------------MODIF FORM ------------------------------
+
+                    let formModif = document.getElementById('formModif');
+
+                    formModif.addEventListener('submit', function (e) {
+                        let ref = document.getElementById('ref');
+                        let lot = document.getElementById('lot');
+                        let myRegexNumCarnet = /^[a-zA-Z0-9]+$/;
+                        let myRegexidLogeAjout = /^[0-9]+$/;
+
+                        if (ref.value.trim() == "") {
+                            let errNumCarnetModif = document.getElementById('errNumCarnetModif');
+                            errNumCarnetModif.innerHTML = "*Le champs N° Carnet est requis.";
+                            errNumCarnetModif.style.color = 'red';
+                            ref.style.borderBottomColor = 'red';
+                            ref.style.boxShadow = 'none'
+                            e.preventDefault();
+                        } else if (ref.value.length > 6) {
+                            let errNumCarnetModif = document.getElementById('errNumCarnetModif');
+                            errNumCarnetModif.innerHTML = "*Le N° Carnet doit comporter au maximum 6 caractères.";
+                            errNumCarnetModif.style.color = 'red';
+                            ref.style.borderBottomColor = 'red';
+                            ref.style.boxShadow = 'none'
+                            e.preventDefault();
+                        }else if (myRegexNumCarnet.test(ref.value) == false) {
+                            let errNumCarnetModif = document.getElementById('errNumCarnetModif');
+                            errNumCarnetModif.innerHTML = "*Le N° Carnet ne doit comporter que des lettres et des chiffres uniquement.";
+                            errNumCarnetModif.style.color = 'red';
+                            ref.style.borderBottomColor = 'red';
+                            ref.style.boxShadow = 'none'
+                            e.preventDefault();
+                        } else{
+                            let errNumCarnetModif = document.getElementById('errNumCarnetModif');
+                            errNumCarnetModif.innerHTML = "";
+                            ref.style.borderBottomColor = 'green';
+                        }
+
+
+                        // -----------------------------------------------------------
+
+
+                        if (lot.value.trim() == "") {
+                            let errIdLogementModif = document.getElementById('errIdLogementModif');
+                            errIdLogementModif.innerHTML = "*Le champs Id Logement est requis.";
+                            errIdLogementModif.style.color = 'red';
+                            lot.style.borderBottomColor = 'red';
+                            lot.style.boxShadow = 'none'
+                            e.preventDefault();
+
+                        }else if (lot.value.length > 5 ){
+                            let errIdLogementModif = document.getElementById('errIdLogementModif');
+                            errIdLogementModif.innerHTML = "*Le champs Id Logement doit comporter au maximum 5 caractères.";
+                            errIdLogementModif.style.color = 'red';
+                            lot.style.borderBottomColor = 'red';
+                            lot.style.boxShadow = 'none'
+                            e.preventDefault();
+
+                        }else if (myRegexidLogeAjout.test(lot.value) == false){
+                            let errIdLogementModif = document.getElementById('errIdLogementModif');
+                            errIdLogementModif.innerHTML = "*Le champs Id Logement ne doit contenir que des chiffres.";
+                            errIdLogementModif.style.color = 'red';
+                            lot.style.borderBottomColor = 'red';
+                            lot.style.boxShadow = 'none'
+                            e.preventDefault();
+                        }else{
+                            let errIdLogementModif = document.getElementById('errIdLogementModif');
+                            errIdLogementModif.innerHTML = "";
+                            lot.style.borderBottomColor = 'green';
+                        }
+
+
+                    });
+
+                </script>
+
+                </body>
+
+                </html>
